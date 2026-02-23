@@ -1,0 +1,18 @@
+# Python
+venv/
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# Flet / Flutter
+build/
+.flet/
+
+# Data (Optionnel : décommentez si vous ne voulez pas partager vos dépenses)
+# expenses.csv
+
+# OS
+.DS_Store
+.idea/
+.vscode/

@@ -1,0 +1,52 @@
+#+TITLE: Documentation Technique : Vue Graphiques (views/charts.py)
+#+AUTHOR: Agentic Engineering Team
+#+DATE: [2026-02-22]
+
+* Rôle de la Vue
+Fournit une visualisation graphique de l'évolution des finances (Revenus cumulés, Dépenses cumulées et Solde) au fil du temps.
+
+* Préparation des Données
+Le calcul est fait en cumulant les transactions jour après jour. On utilise =groupby= de Pandas pour agréger les montants si plusieurs transactions ont eu lieu le même jour.
+
+#+begin_src python :tangle ../views/charts.py
+import flet as ft
+import flet_charts as fc
+import pandas as pd
+import database
+
+def get_charts_view():
+    df = database.get_df()
+    if df.empty:
+        return ft.Center(content=ft.Text("Tsy mbola misy angona."))
+
+    df['Date'] = pd.to_datetime(df['Date'])
+    df['Type'] = df['Type'].replace({'Income': 'Miditra', 'Expense': 'Fandaniana'})
+    
+    # Agrégation journalière
+    daily_df = df.groupby(['Date', 'Type'])['Amount'].sum().unstack(fill_value=0)
+    for col in ['Miditra', 'Fandaniana']:
+        if col not in daily_df.columns: daily_df[col] = 0
+            
+    daily_df = daily_df.sort_index()
+#+end_src
+
+* Construction du Graphique
+On utilise le widget =fc.LineChart= de Flet. Trois séries de données sont tracées :
+1. Vert : Revenus cumulés.
+2. Rouge : Dépenses cumulées.
+3. Bleu : Solde (Balance).
+
+#+begin_src python :tangle ../views/charts.py
+    # ... Logique de calcul du cumul (omise ici pour la clarté)
+    chart = fc.LineChart(
+        data_series=[
+            # Série Revenus
+            fc.LineChartData(points=income_points, color=ft.Colors.GREEN),
+            # Série Dépenses
+            fc.LineChartData(points=expense_points, color=ft.Colors.RED),
+            # Série Solde
+            fc.LineChartData(points=balance_points, color=ft.Colors.BLUE),
+        ],
+        # ... Configuration de l'axe et de la grille
+    )
+#+end_src

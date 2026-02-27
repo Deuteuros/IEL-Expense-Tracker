@@ -8,7 +8,7 @@ class HistoryView(ft.Column):
         super().__init__(expand=True)
         self.main_page = page
         self.selection_mode = False
-        self.selected_indices = set()
+        self._selected_indices = [] # Use list instead of set for Flet Web serialization
         self.filter_type = "Hafakely"
         self.refresh(update=False)
 
@@ -21,7 +21,7 @@ class HistoryView(ft.Column):
         if self.selection_mode:
             header_content = [
                 ft.IconButton(ft.Icons.CLOSE, on_click=self.exit_selection_mode),
-                ft.Text(f"{len(self.selected_indices)} voafidy", size=20, weight="bold"),
+                ft.Text(f"{len(self._selected_indices)} voafidy", size=20, weight="bold"),
                 ft.IconButton(ft.Icons.DELETE, icon_color=ft.Colors.RED, on_click=self.confirm_delete),
             ]
         else:
@@ -46,7 +46,7 @@ class HistoryView(ft.Column):
                             ft.Segment(value="Volana", label=ft.Text("Volana")),
                             ft.Segment(value="Taona", label=ft.Text("Taona")),
                         ],
-                        selected={self.filter_type},
+                        selected={self.filter_type}, # Still needs set for the property
                         on_change=self.on_filter_change,
                     ),
                     padding=ft.Padding(20, 0, 20, 10)
@@ -98,7 +98,7 @@ class HistoryView(ft.Column):
         leading = None
         if self.selection_mode:
             leading = ft.Checkbox(
-                value=idx in self.selected_indices,
+                value=idx in self._selected_indices,
                 on_change=lambda e, i=idx: self.toggle_selection(i)
             )
         else:
@@ -127,21 +127,22 @@ class HistoryView(ft.Column):
     def enter_selection_mode(self, index):
         if not self.selection_mode:
             self.selection_mode = True
-            self.selected_indices.add(index)
+            if index not in self._selected_indices:
+                self._selected_indices.append(index)
             self.refresh()
 
     def exit_selection_mode(self, e=None):
         self.selection_mode = False
-        self.selected_indices.clear()
+        self._selected_indices = []
         self.refresh()
 
     def toggle_selection(self, index):
-        if index in self.selected_indices:
-            self.selected_indices.remove(index)
+        if index in self._selected_indices:
+            self._selected_indices.remove(index)
         else:
-            self.selected_indices.add(index)
+            self._selected_indices.append(index)
         
-        if not self.selected_indices:
+        if not self._selected_indices:
             self.selection_mode = False
         self.refresh()
 
@@ -155,7 +156,7 @@ class HistoryView(ft.Column):
             self.main_page.update()
 
         def delete_confirmed(e):
-            database.delete_entries_by_index(list(self.selected_indices))
+            database.delete_entries_by_index(self._selected_indices)
             dlg.open = False
             self.exit_selection_mode()
             if hasattr(self.main_page, "refresh_view"):
@@ -164,7 +165,7 @@ class HistoryView(ft.Column):
 
         dlg = ft.AlertDialog(
             title=ft.Text("Famafana"),
-            content=ft.Text(f"Tena hofafanao ve ireto {len(self.selected_indices)} voafidy ireto?"),
+            content=ft.Text(f"Tena hofafanao ve ireto {len(self._selected_indices)} voafidy ireto?"),
             actions=[
                 ft.TextButton("Tsia", on_click=close_dlg),
                 ft.TextButton("Eny", on_click=delete_confirmed),

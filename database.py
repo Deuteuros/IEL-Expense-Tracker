@@ -3,7 +3,7 @@ import os
 from datetime import datetime
 
 DATA_FILE = "expense.csv"
-COLUMNS = ['date', 'categorie_flux', 'item', 'quantite', 'unite', 'prix_unitaire_mga', 'montant_total_mga', 'fournisseur_client']
+COLUMNS = ['date', 'categorie_flux', 'item', 'quantite', 'unite', 'prix_unitaire', 'montant_total_mga', 'fournisseur_client']
 
 def init_db():
     if not os.path.exists(DATA_FILE):

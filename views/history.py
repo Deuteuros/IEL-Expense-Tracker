@@ -3,61 +3,112 @@ import database
 import pandas as pd
 from datetime import datetime
 
-def get_history_view():
-    df = database.get_df()
-    
-    # State for filtering
-    filter_state = ft.Ref[ft.SegmentedButton]()
-    list_container = ft.Column(scroll=ft.ScrollMode.AUTO, expand=True)
+class HistoryView(ft.Column):
+    def __init__(self, page: ft.Page):
+        super().__init__(expand=True)
+        self.main_page = page
+        self.selection_mode = False
+        self.selected_indices = set()
+        self.filter_type = "Hafakely"
+        self.refresh(update=False)
 
-    def build_list(filter_type="Hafakely"): # Default to All/Recent if not grouped
+    def refresh(self, update=True):
+        self.controls.clear()
         df = database.get_df()
-        if df.empty:
-            return [ft.Text("Tsy mbola misy angona.", size=16)]
         
-        df['date'] = pd.to_datetime(df['date'])
-        df = df.sort_values(by='date', ascending=False)
-        
-        items = []
-        
-        if filter_type == "Herinandro":
-            # Group by week
-            df['group'] = df['date'].dt.to_period('W').apply(lambda r: r.start_time.strftime('%Y-W%W'))
-        elif filter_type == "Volana":
-            # Group by month
-            df['group'] = df['date'].dt.strftime('%B %Y')
-        elif filter_type == "Taona":
-            # Group by year
-            df['group'] = df['date'].dt.strftime('%Y')
+        # Header
+        header_content = []
+        if self.selection_mode:
+            header_content = [
+                ft.IconButton(ft.Icons.CLOSE, on_click=self.exit_selection_mode),
+                ft.Text(f"{len(self.selected_indices)} voafidy", size=20, weight="bold"),
+                ft.IconButton(ft.Icons.DELETE, icon_color=ft.Colors.RED, on_click=self.confirm_delete),
+            ]
         else:
-            df['group'] = None
+            header_content = [
+                ft.Text("Tantara", size=24, weight="bold"),
+            ]
 
-        if df['group'].notnull().any():
-            for group_name, group_df in df.groupby('group', sort=False):
-                items.append(
-                    ft.Container(
-                        content=ft.Text(group_name, weight="bold", size=18, color=ft.Colors.GREEN_700),
-                        padding=ft.Padding(10, 20, 10, 5)
-                    )
+        self.controls.append(
+            ft.Container(
+                content=ft.Row(header_content, alignment=ft.MainAxisAlignment.SPACE_BETWEEN),
+                padding=20
+            )
+        )
+
+        if not self.selection_mode:
+            self.controls.append(
+                ft.Container(
+                    content=ft.SegmentedButton(
+                        segments=[
+                            ft.Segment(value="Hafakely", label=ft.Text("Rehetra")),
+                            ft.Segment(value="Herinandro", label=ft.Text("Herinandro")),
+                            ft.Segment(value="Volana", label=ft.Text("Volana")),
+                            ft.Segment(value="Taona", label=ft.Text("Taona")),
+                        ],
+                        selected={self.filter_type},
+                        on_change=self.on_filter_change,
+                    ),
+                    padding=ft.Padding(20, 0, 20, 10)
                 )
-                for _, row in group_df.iterrows():
-                    items.append(create_tile(row))
-        else:
-            for _, row in df.iterrows():
-                items.append(create_tile(row))
-        
-        return items
+            )
 
-    def create_tile(row):
+        # List Container
+        list_items = []
+        if df.empty:
+            list_items.append(ft.Text("Tsy mbola misy angona.", size=16))
+        else:
+            df['date'] = pd.to_datetime(df['date'])
+            df = df.sort_values(by='date', ascending=False)
+            
+            if self.filter_type == "Herinandro":
+                df['group'] = df['date'].dt.to_period('W').apply(lambda r: r.start_time.strftime('%Y-W%W'))
+            elif self.filter_type == "Volana":
+                df['group'] = df['date'].dt.strftime('%B %Y')
+            elif self.filter_type == "Taona":
+                df['group'] = df['date'].dt.strftime('%Y')
+            else:
+                df['group'] = None
+
+            if df['group'].notnull().any() and not self.selection_mode:
+                for group_name, group_df in df.groupby('group', sort=False):
+                    list_items.append(
+                        ft.Container(
+                            content=ft.Text(group_name, weight="bold", size=18, color=ft.Colors.GREEN_700),
+                            padding=ft.Padding(10, 20, 10, 5)
+                        )
+                    )
+                    for idx, row in group_df.iterrows():
+                        list_items.append(self.create_tile(idx, row))
+            else:
+                for idx, row in df.iterrows():
+                    list_items.append(self.create_tile(idx, row))
+        
+        self.controls.append(
+            ft.Column(list_items, scroll=ft.ScrollMode.AUTO, expand=True)
+        )
+        
+        if update:
+            self.update()
+
+    def create_tile(self, idx, row):
         is_income = row['categorie_flux'] in ["Income", "Miditra"]
-        # Format: "Item - QtyUnit"
         display_name = f"{row['item']} - {row['quantite']}{row['unite']}" if row['unite'] else f"{row['item']} - {row['quantite']}"
         
-        return ft.ListTile(
-            leading=ft.CircleAvatar(
+        leading = None
+        if self.selection_mode:
+            leading = ft.Checkbox(
+                value=idx in self.selected_indices,
+                on_change=lambda e, i=idx: self.toggle_selection(i)
+            )
+        else:
+            leading = ft.CircleAvatar(
                 content=ft.Icon(ft.Icons.SHOPPING_BASKET if not is_income else ft.Icons.ATTACH_MONEY, color=ft.Colors.WHITE),
                 bgcolor=ft.Colors.GREEN if is_income else ft.Colors.RED_400,
-            ),
+            )
+
+        return ft.ListTile(
+            leading=leading,
             title=ft.Text(display_name, weight="bold"),
             subtitle=ft.Text(f"{row['date'].strftime('%Y-%m-%d')} | {row['fournisseur_client'] or '---'}"),
             trailing=ft.Text(
@@ -65,34 +116,63 @@ def get_history_view():
                 color=ft.Colors.GREEN if is_income else ft.Colors.RED,
                 weight="bold"
             ),
+            on_long_press=lambda e, i=idx: self.enter_selection_mode(i),
+            on_click=lambda e, i=idx: self.handle_click(i)
         )
 
-    def on_filter_change(e):
-        selected = list(e.control.selected)[0]
-        list_container.controls = build_list(selected)
-        list_container.update()
+    def on_filter_change(self, e):
+        self.filter_type = list(e.control.selected)[0]
+        self.refresh()
 
-    filter_menu = ft.SegmentedButton(
-        ref=filter_state,
-        segments=[
-            ft.Segment(value="Hafakely", label=ft.Text("Rehetra")),
-            ft.Segment(value="Herinandro", label=ft.Text("Herinandro")),
-            ft.Segment(value="Volana", label=ft.Text("Volana")),
-            ft.Segment(value="Taona", label=ft.Text("Taona")),
-        ],
-        selected=["Hafakely"],
-        on_change=on_filter_change,
-    )
+    def enter_selection_mode(self, index):
+        if not self.selection_mode:
+            self.selection_mode = True
+            self.selected_indices.add(index)
+            self.refresh()
 
-    list_container.controls = build_list("Hafakely")
+    def exit_selection_mode(self, e=None):
+        self.selection_mode = False
+        self.selected_indices.clear()
+        self.refresh()
 
-    return ft.Column([
-        ft.Container(
-            content=ft.Column([
-                ft.Text("Tantara", size=24, weight="bold"),
-                filter_menu,
-            ]),
-            padding=20
-        ),
-        list_container
-    ], expand=True)
+    def toggle_selection(self, index):
+        if index in self.selected_indices:
+            self.selected_indices.remove(index)
+        else:
+            self.selected_indices.add(index)
+        
+        if not self.selected_indices:
+            self.selection_mode = False
+        self.refresh()
+
+    def handle_click(self, index):
+        if self.selection_mode:
+            self.toggle_selection(index)
+
+    def confirm_delete(self, e):
+        def close_dlg(e):
+            dlg.open = False
+            self.main_page.update()
+
+        def delete_confirmed(e):
+            database.delete_entries_by_index(list(self.selected_indices))
+            dlg.open = False
+            self.exit_selection_mode()
+            if hasattr(self.main_page, "refresh_view"):
+                self.main_page.refresh_view()
+            self.main_page.update()
+
+        dlg = ft.AlertDialog(
+            title=ft.Text("Famafana"),
+            content=ft.Text(f"Tena hofafanao ve ireto {len(self.selected_indices)} voafidy ireto?"),
+            actions=[
+                ft.TextButton("Tsia", on_click=close_dlg),
+                ft.TextButton("Eny", on_click=delete_confirmed),
+            ]
+        )
+        self.main_page.overlay.append(dlg)
+        dlg.open = True
+        self.main_page.update()
+
+def get_history_view(page: ft.Page):
+    return HistoryView(page)

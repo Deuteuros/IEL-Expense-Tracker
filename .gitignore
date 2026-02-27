@@ -9,12 +9,9 @@ __pycache__/
 build/
 .flet/
 .apk/
-<<<<<<< HEAD
 *.apk
 bin/
 obj/
-=======
->>>>>>> bundle_schema/feat-evolution-schema-tantara
 
 # Data (Optionnel : décommentez si vous ne voulez pas partager vos dépenses)
 # expenses.csv

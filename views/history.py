@@ -47,10 +47,10 @@ class HistoryView(ft.Column):
                         selected_index=tab_index,
                         on_change=self.on_filter_change,
                         tabs=[
-                            ft.Tab(text="Rehetra"),
-                            ft.Tab(text="Herinandro"),
-                            ft.Tab(text="Volana"),
-                            ft.Tab(text="Taona"),
+                            ft.Tab(label="Rehetra"),
+                            ft.Tab(label="Herinandro"),
+                            ft.Tab(label="Volana"),
+                            ft.Tab(label="Taona"),
                         ],
                     ),
                     padding=ft.Padding(10, 0, 10, 10)

@@ -79,8 +79,8 @@ def main(page: ft.Page):
         cat_flux_tabs = ft.Tabs(
             selected_index=1, # Default to Fandaniana
             tabs=[
-                ft.Tab(text="Miditra", icon=ft.Icons.ADD),
-                ft.Tab(text="Fandaniana", icon=ft.Icons.REMOVE),
+                ft.Tab(label="Miditra", icon=ft.Icons.ADD),
+                ft.Tab(label="Fandaniana", icon=ft.Icons.REMOVE),
             ],
         )
         item_field = ft.TextField(label="Item (Zavatra)", autofocus=True)

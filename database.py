@@ -23,3 +23,8 @@ def save_entry(type_val, category, amount):
     new_data = [[datetime.now().strftime("%Y-%m-%d"), type_val, category, amount]]
     new_df = pd.DataFrame(new_data, columns=['Date', 'Type', 'Category', 'Amount'])
     new_df.to_csv(DATA_FILE, mode='a', header=False, index=False)
+
+def delete_entries_by_index(indices):
+    df = get_df()
+    df = df.drop(indices)
+    df.to_csv(DATA_FILE, index=False)

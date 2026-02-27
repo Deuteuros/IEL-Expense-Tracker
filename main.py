@@ -20,7 +20,7 @@ def main(page: ft.Page):
         if index == 0:
             main_content.content = get_summary_view()
         elif index == 1:
-            main_content.content = get_history_view()
+            main_content.content = get_history_view(page)
         elif index == 2:
             main_content.content = get_charts_view()
         page.update()
@@ -113,9 +113,13 @@ def main(page: ft.Page):
         if idx == 0:
             main_content.content = get_summary_view()
         elif idx == 1:
-            main_content.content = get_history_view()
+            main_content.content = get_history_view(page)
         elif idx == 2:
             main_content.content = get_charts_view()
+        page.update()
+
+    # Expose refresh_view to allow views to trigger global refresh
+    page.refresh_view = refresh_view
 
     # --- Initial View ---
     main_content.content = get_summary_view()
@@ -132,5 +136,11 @@ def main(page: ft.Page):
 # mais ft.app(target=main) reste correct pour la version 0.80.2.
 # On peut spécifier le mode d'affichage ici.
 if __name__ == "__main__":
-    # On force le mode web pour contourner l'absence de libmpv sur le système
-    ft.app(target=main, view=ft.AppView.WEB_BROWSER)
+    import sys
+    if "--web" in sys.argv:
+        # Mode web pour contourner l'absence de libmpv si nécessaire
+        ft.app(target=main, view=ft.AppView.WEB_BROWSER)
+    else:
+        # Mode Desktop par défaut
+        ft.app(target=main)
+

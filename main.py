@@ -4,6 +4,7 @@ import config
 from views.summary import get_summary_view
 from views.history import get_history_view
 from views.charts import get_charts_view
+from components.segmented_control import CustomSegmentedControl, Segment
 
 def main(page: ft.Page):
     page.title = "Cashew Expense Tracker"
@@ -76,12 +77,12 @@ def main(page: ft.Page):
 
     # --- Add Entry Logic ---
     def open_add_dialog(e):
-        cat_flux_tabs = ft.Tabs(
-            selected_index=1, # Default to Fandaniana
-            tabs=[
-                ft.Tab(label="Miditra", icon=ft.Icons.ADD),
-                ft.Tab(label="Fandaniana", icon=ft.Icons.REMOVE),
+        cat_flux_selector = CustomSegmentedControl(
+            segments=[
+                Segment(value="Miditra", label="Miditra", icon=ft.Icons.ADD),
+                Segment(value="Fandaniana", label="Fandaniana", icon=ft.Icons.REMOVE),
             ],
+            selected_index=1, # Default to Fandaniana
         )
         item_field = ft.TextField(label="Item (Zavatra)", autofocus=True)
         qty_field = ft.TextField(label="Quantite", keyboard_type=ft.KeyboardType.NUMBER)
@@ -121,7 +122,7 @@ def main(page: ft.Page):
                 p_val = float(price_field.value)
                 t_val = q_val * p_val
                 
-                f_type = "Miditra" if cat_flux_tabs.selected_index == 0 else "Fandaniana"
+                f_type = cat_flux_selector.segments[cat_flux_selector.selected_index].value
                 
                 # Save via database module
                 database.save_entry(
@@ -163,7 +164,7 @@ def main(page: ft.Page):
                 ft.IconButton(ft.Icons.CLOSE, on_click=close_dialog),
             ], alignment=ft.MainAxisAlignment.SPACE_BETWEEN),
             content=ft.Column([
-                cat_flux_tabs,
+                cat_flux_selector,
                 item_field,
                 ft.Row([qty_field, unit_field], spacing=10),
                 price_field,

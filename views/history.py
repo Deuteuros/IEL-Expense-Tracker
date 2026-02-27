@@ -2,6 +2,7 @@ import flet as ft
 import database
 import pandas as pd
 from datetime import datetime
+from components.segmented_control import CustomSegmentedControl, Segment
 
 class HistoryView(ft.Column):
     def __init__(self, page: ft.Page):
@@ -43,17 +44,17 @@ class HistoryView(ft.Column):
             
             self.controls.append(
                 ft.Container(
-                    content=ft.Tabs(
+                    content=CustomSegmentedControl(
+                        segments=[
+                            Segment(value="Hafakely", label="Rehetra"),
+                            Segment(value="Herinandro", label="Herinandro"),
+                            Segment(value="Volana", label="Volana"),
+                            Segment(value="Taona", label="Taona"),
+                        ],
                         selected_index=tab_index,
                         on_change=self.on_filter_change,
-                        tabs=[
-                            ft.Tab(label="Rehetra"),
-                            ft.Tab(label="Herinandro"),
-                            ft.Tab(label="Volana"),
-                            ft.Tab(label="Taona"),
-                        ],
                     ),
-                    padding=ft.Padding(10, 0, 10, 10)
+                    padding=ft.Padding(20, 0, 20, 10)
                 )
             )
 
@@ -125,9 +126,7 @@ class HistoryView(ft.Column):
         )
 
     def on_filter_change(self, e):
-        idx = e.control.selected_index
-        filter_reverse_map = {0: "Hafakely", 1: "Herinandro", 2: "Volana", 3: "Taona"}
-        self.filter_type = filter_reverse_map.get(idx, "Hafakely")
+        self.filter_type = e.value
         self.refresh()
 
     def enter_selection_mode(self, index):

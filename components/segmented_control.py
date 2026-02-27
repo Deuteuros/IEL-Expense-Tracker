@@ -26,7 +26,7 @@ class CustomSegmentedControl(ft.Container):
                     border_radius=20,
                     padding=ft.padding.symmetric(15, 10),
                     on_click=lambda e, idx=i: self.select(idx),
-                    animate=ft.animation.Animation(300, ft.AnimationCurve.DECELERATE),
+                    animate=ft.Animation(300, "decelerate"),
                     expand=True,
                 )
             )

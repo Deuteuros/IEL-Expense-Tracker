@@ -1,5 +1,6 @@
 import flet as ft
 import database
+import config
 from views.summary import get_summary_view
 from views.history import get_history_view
 from views.charts import get_charts_view
@@ -11,6 +12,44 @@ def main(page: ft.Page):
     page.padding = 0
 
     database.init_db()
+
+    # --- Consent Check ---
+    def show_consent_dialog():
+        def on_consent_change(e):
+            btn_continue.disabled = not e.control.value
+            page.update()
+
+        def on_continue(e):
+            config.update_config("consent_accepted", True)
+            consent_dialog.open = False
+            page.update()
+
+        btn_continue = ft.FilledButton("Manohy", disabled=True, on_click=on_continue)
+        
+        consent_dialog = ft.AlertDialog(
+            modal=True,
+            title=ft.Text("Fepetra fampiasana", weight=ft.FontWeight.BOLD),
+            content=ft.Column([
+                ft.Text("Vakio ny fepetra fampiasana ary mariho ny boaty raha manaiky ianao."),
+                ft.Row([
+                    ft.Text("Jereo ny "),
+                    ft.TextButton("Conditions d'utilisation", url="https://example.com/terms"),
+                ], spacing=0, wrap=True),
+                ft.Checkbox(
+                    label="Avy namako aho dia ekeko ny fepetra fampiasana",
+                    on_change=on_consent_change
+                ),
+            ], tight=True, spacing=10),
+            actions=[btn_continue],
+            actions_alignment=ft.MainAxisAlignment.END,
+        )
+        
+        page.overlay.append(consent_dialog)
+        consent_dialog.open = True
+        page.update()
+
+    if not config.is_consent_given():
+        show_consent_dialog()
 
     # --- Main Navigation Logic ---
     main_content = ft.Container(expand=True)

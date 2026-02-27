@@ -37,19 +37,23 @@ class HistoryView(ft.Column):
         )
 
         if not self.selection_mode:
+            # Re-mapping filter type to tab index
+            filter_map = {"Hafakely": 0, "Herinandro": 1, "Volana": 2, "Taona": 3}
+            tab_index = filter_map.get(self.filter_type, 0)
+            
             self.controls.append(
                 ft.Container(
-                    content=ft.SegmentedButton(
-                        segments=[
-                            ft.Segment(value="Hafakely", label=ft.Text("Rehetra")),
-                            ft.Segment(value="Herinandro", label=ft.Text("Herinandro")),
-                            ft.Segment(value="Volana", label=ft.Text("Volana")),
-                            ft.Segment(value="Taona", label=ft.Text("Taona")),
-                        ],
-                        selected={self.filter_type}, # Still needs set for the property
+                    content=ft.Tabs(
+                        selected_index=tab_index,
                         on_change=self.on_filter_change,
+                        tabs=[
+                            ft.Tab(text="Rehetra"),
+                            ft.Tab(text="Herinandro"),
+                            ft.Tab(text="Volana"),
+                            ft.Tab(text="Taona"),
+                        ],
                     ),
-                    padding=ft.Padding(20, 0, 20, 10)
+                    padding=ft.Padding(10, 0, 10, 10)
                 )
             )
 
@@ -121,7 +125,9 @@ class HistoryView(ft.Column):
         )
 
     def on_filter_change(self, e):
-        self.filter_type = list(e.control.selected)[0]
+        idx = e.control.selected_index
+        filter_reverse_map = {0: "Hafakely", 1: "Herinandro", 2: "Volana", 3: "Taona"}
+        self.filter_type = filter_reverse_map.get(idx, "Hafakely")
         self.refresh()
 
     def enter_selection_mode(self, index):

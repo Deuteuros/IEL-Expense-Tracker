@@ -76,13 +76,12 @@ def main(page: ft.Page):
 
     # --- Add Entry Logic ---
     def open_add_dialog(e):
-        cat_flux_field = ft.SegmentedButton(
-            segments=[
-                ft.Segment(value="Miditra", label=ft.Text("Miditra"), icon=ft.Icon(ft.Icons.ADD)),
-                ft.Segment(value="Fandaniana", label=ft.Text("Fandaniana"), icon=ft.Icon(ft.Icons.REMOVE)),
+        cat_flux_tabs = ft.Tabs(
+            selected_index=1, # Default to Fandaniana
+            tabs=[
+                ft.Tab(text="Miditra", icon=ft.Icons.ADD),
+                ft.Tab(text="Fandaniana", icon=ft.Icons.REMOVE),
             ],
-            selected=["Fandaniana"],
-            allow_multiple_selection=False,
         )
         item_field = ft.TextField(label="Item (Zavatra)", autofocus=True)
         qty_field = ft.TextField(label="Quantite", keyboard_type=ft.KeyboardType.NUMBER)
@@ -122,8 +121,7 @@ def main(page: ft.Page):
                 p_val = float(price_field.value)
                 t_val = q_val * p_val
                 
-                selected = cat_flux_field.selected
-                f_type = list(selected)[0] if selected else "Fandaniana"
+                f_type = "Miditra" if cat_flux_tabs.selected_index == 0 else "Fandaniana"
                 
                 # Save via database module
                 database.save_entry(
@@ -165,7 +163,7 @@ def main(page: ft.Page):
                 ft.IconButton(ft.Icons.CLOSE, on_click=close_dialog),
             ], alignment=ft.MainAxisAlignment.SPACE_BETWEEN),
             content=ft.Column([
-                cat_flux_field,
+                cat_flux_tabs,
                 item_field,
                 ft.Row([qty_field, unit_field], spacing=10),
                 price_field,

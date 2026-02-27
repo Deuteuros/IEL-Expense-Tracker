@@ -2,24 +2,37 @@ import pandas as pd
 import os
 from datetime import datetime
 
-DATA_FILE = "expenses.csv"
+DATA_FILE = "expense.csv"
+COLUMNS = ['date', 'categorie_flux', 'item', 'quantite', 'unite', 'prix_unitaire_mga', 'montant_total_mga', 'fournisseur_client']
 
 def init_db():
     if not os.path.exists(DATA_FILE):
-        df = pd.DataFrame(columns=['Date', 'Type', 'Category', 'Amount'])
+        df = pd.DataFrame(columns=COLUMNS)
         df.to_csv(DATA_FILE, index=False)
 
 def get_df():
+    if not os.path.exists(DATA_FILE):
+        init_db()
     return pd.read_csv(DATA_FILE)
 
 def get_summary_data():
     df = get_df()
-    income = df[df['Type'].isin(['Income', 'Miditra'])]['Amount'].sum()
-    expense = df[df['Type'].isin(['Expense', 'Fandaniana'])]['Amount'].sum()
+    # Assuming 'Miditra' is income and everything else is expense or based on categorie_flux
+    income = df[df['categorie_flux'].isin(['Income', 'Miditra'])]['montant_total_mga'].sum()
+    expense = df[df['categorie_flux'].isin(['Expense', 'Fandaniana'])]['montant_total_mga'].sum()
     balance = income - expense
     return income, expense, balance
 
-def save_entry(type_val, category, amount):
-    new_data = [[datetime.now().strftime("%Y-%m-%d"), type_val, category, amount]]
-    new_df = pd.DataFrame(new_data, columns=['Date', 'Type', 'Category', 'Amount'])
+def save_entry(categorie_flux, item, quantite, unite, prix_unitaire, montant_total, fournisseur):
+    new_data = [[
+        datetime.now().strftime("%Y-%m-%d"),
+        categorie_flux,
+        item,
+        quantite,
+        unite,
+        prix_unitaire,
+        montant_total,
+        fournisseur
+    ]]
+    new_df = pd.DataFrame(new_data, columns=COLUMNS)
     new_df.to_csv(DATA_FILE, mode='a', header=False, index=False)

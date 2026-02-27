@@ -8,10 +8,10 @@ def get_charts_view():
     if df.empty:
         return ft.Center(content=ft.Text("Tsy mbola misy angona."))
 
-    df['Date'] = pd.to_datetime(df['Date'])
-    df['Type'] = df['Type'].replace({'Income': 'Miditra', 'Expense': 'Fandaniana'})
+    df['date'] = pd.to_datetime(df['date'])
+    df['categorie_flux'] = df['categorie_flux'].replace({'Income': 'Miditra', 'Expense': 'Fandaniana'})
     
-    daily_df = df.groupby(['Date', 'Type'])['Amount'].sum().unstack(fill_value=0)
+    daily_df = df.groupby(['date', 'categorie_flux'])['montant_total_mga'].sum().unstack(fill_value=0)
     for col in ['Miditra', 'Fandaniana']:
         if col not in daily_df.columns: daily_df[col] = 0
             

@@ -37,10 +37,7 @@ def main(page: ft.Page):
 
     # --- Add Entry Logic ---
     def open_add_dialog(e):
-        cat_field = ft.TextField(label="Sokajy", autofocus=True)
-        amt_field = ft.TextField(label="Vola (Ar)", keyboard_type=ft.KeyboardType.NUMBER)
-        
-        type_field = ft.SegmentedButton(
+        cat_flux_field = ft.SegmentedButton(
             segments=[
                 ft.Segment(value="Miditra", label=ft.Text("Miditra"), icon=ft.Icon(ft.Icons.ADD)),
                 ft.Segment(value="Fandaniana", label=ft.Text("Fandaniana"), icon=ft.Icon(ft.Icons.REMOVE)),
@@ -48,57 +45,94 @@ def main(page: ft.Page):
             selected=["Fandaniana"],
             allow_multiple_selection=False,
         )
+        item_field = ft.TextField(label="Item (Zavatra)", autofocus=True)
+        qty_field = ft.TextField(label="Quantite", keyboard_type=ft.KeyboardType.NUMBER)
+        unit_field = ft.TextField(label="Unite (Ohatra: kg, lany...)")
+        price_field = ft.TextField(label="Prix Unitaire (Ar)", keyboard_type=ft.KeyboardType.NUMBER)
+        total_field = ft.TextField(label="Montant Total (Ar)", read_only=True, value="0")
+        client_field = ft.TextField(label="Fournisseur / Client")
 
+        def update_total(e):
+            try:
+                qty = float(qty_field.value) if qty_field.value else 0
+                price = float(price_field.value) if price_field.value else 0
+                total = qty * price
+                total_field.value = f"{total:,.0f}"
+                page.update()
+            except ValueError:
+                total_field.value = "Erreur"
+                page.update()
+
+        qty_field.on_change = update_total
+        price_field.on_change = update_total
+        
         def close_dialog(e):
             dialog.open = False
             page.update()
 
         def save_entry_callback(e):
-            if not amt_field.value or not cat_field.value:
-                if not amt_field.value: amt_field.error_text = "Ilaina ity"
-                if not cat_field.value: cat_field.error_text = "Ilaina ity"
+            if not qty_field.value or not price_field.value or not item_field.value:
+                if not qty_field.value: qty_field.error_text = "Ilaina ity"
+                if not price_field.value: price_field.error_text = "Ilaina ity"
+                if not item_field.value: item_field.error_text = "Ilaina ity"
                 page.update()
                 return
             
             try:
-                val = float(amt_field.value)
-                selected = type_field.selected
-                t_val = list(selected)[0] if selected else "Fandaniana"
+                q_val = float(qty_field.value)
+                p_val = float(price_field.value)
+                t_val = q_val * p_val
+                
+                selected = cat_flux_field.selected
+                f_type = list(selected)[0] if selected else "Fandaniana"
                 
                 # Save via database module
-                database.save_entry(t_val, cat_field.value, val)
+                database.save_entry(
+                    f_type, 
+                    item_field.value, 
+                    q_val, 
+                    unit_field.value, 
+                    p_val, 
+                    t_val, 
+                    client_field.value
+                )
                 
                 # Feedback
                 page.snack_bar = ft.SnackBar(
-                    content=ft.Text(f"Voatahiry: {cat_field.value} (Ar {val:,.0f})"),
+                    content=ft.Text(f"Voatahiry: {item_field.value} (Ar {t_val:,.0f})"),
                     bgcolor=ft.Colors.GREEN_700
                 )
                 page.snack_bar.open = True
                 
                 # Reset UI
-                cat_field.value = ""
-                amt_field.value = ""
-                cat_field.error_text = None
-                amt_field.error_text = None
-                cat_field.focus()
+                item_field.value = ""
+                qty_field.value = ""
+                unit_field.value = ""
+                price_field.value = ""
+                total_field.value = "0"
+                client_field.value = ""
                 
                 # Refresh current view
                 refresh_view()
                 page.update()
             except ValueError:
-                amt_field.error_text = "Tsy maintsy isa (ohatra: 500)"
+                page.snack_bar = ft.SnackBar(content=ft.Text("Nisy fahadisoana teo amin'ny isa"), bgcolor=ft.Colors.RED_700)
+                page.snack_bar.open = True
                 page.update()
 
         dialog = ft.AlertDialog(
             title=ft.Row([
-                ft.Text("Ampidiro fandaniana"),
+                ft.Text("Ampidiro fandaniana / miditra"),
                 ft.IconButton(ft.Icons.CLOSE, on_click=close_dialog),
             ], alignment=ft.MainAxisAlignment.SPACE_BETWEEN),
             content=ft.Column([
-                type_field,
-                cat_field,
-                amt_field,
-            ], tight=True, spacing=20),
+                cat_flux_field,
+                item_field,
+                ft.Row([qty_field, unit_field], spacing=10),
+                price_field,
+                total_field,
+                client_field,
+            ], tight=True, spacing=10, scroll=ft.ScrollMode.AUTO),
             actions=[
                 ft.FilledButton("Ampidiro", on_click=save_entry_callback),
             ],

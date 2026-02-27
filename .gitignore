@@ -8,6 +8,7 @@ __pycache__/
 # Flet / Flutter
 build/
 .flet/
+.apk/
 
 # Data (Optionnel : décommentez si vous ne voulez pas partager vos dépenses)
 # expenses.csv

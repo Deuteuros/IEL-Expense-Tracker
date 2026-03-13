@@ -1,4 +1,4 @@
-date,categorie_flux,item,quantite,unite,prix_unitaire_mga,montant_total_mga,fournisseur_client
+date,categorie_flux,item,quantite,unite,prix_unitaire,montant_total_mga,fournisseur_client
 2026-02-20,Fandaniana,karama,1.0,pcs,200000.0,200000.0,Migrated
 2026-02-20,Miditra,Karama be,1.0,pcs,1000000.0,1000000.0,Migrated
 2026-02-20,Fandaniana,Vary,1.0,pcs,3500.0,3500.0,Migrated
@@ -11,3 +11,4 @@ date,categorie_flux,item,quantite,unite,prix_unitaire_mga,montant_total_mga,four
 2026-02-20,Fandaniana,Mine sao,1.0,pcs,12000.0,12000.0,Migrated
 2026-02-22,Fandaniana,Pizza,1.0,pcs,25000.0,25000.0,Migrated
 2026-02-27,Fandaniana,Vary,1.0,kg,3500.0,3500.0,
+2026-03-02,Fandaniana,Carotte,1.0,kg,2000.0,2000.0,

@@ -1,6 +1,6 @@
 # 🗺️ Roadmap
 
-> Dernière mise à jour : 2026-03-02
+> Dernière mise à jour : 2026-03-16
 
 ---
 
@@ -53,17 +53,26 @@
 
 ---
 
-## ⬜ Fonctionnalité 5 — Import du Journal Canteen (CSV Existant)
-**Objectif :** Utiliser `Journal d'activité Canteen depuis 2025.csv` comme source de données initiale pour pré-remplir l'application avec l'historique réel de la cantine.
+## ⬜ Fonctionnalité 5 — Import & Export du Journal (CSV)
+**Objectif :** Faciliter la migration des données (Canteen) et permettre la sauvegarde externe du journal.
 
-- **Compatibilité :** Le fichier CSV existant partage déjà le même schéma que `expense.csv` : `date`, `categorie_flux`, `item`, `quantite`, `unite`, `prix_unitaire_mga`, `montant_total_mga`, `fournisseur_client`
-- **Import :** Ajouter une fonction d'import dans `database.py` qui lit le fichier source et fusionne les lignes dans `expense.csv` sans doublons (vérification par `date` + `item` + `montant_total_mga`)
-- **UI :** Ajouter un bouton "Importer un fichier CSV" dans un onglet Paramètres avec un `ft.FilePicker`
-- **Validation :** Vérifier la structure des colonnes avant import et afficher un résumé (ex: "243 lignes importées, 0 doublon ignoré")
+- **Import :** Utiliser `Journal d'activité Canteen depuis 2025.csv` pour pré-remplir l'application. Fusion intelligente sans doublons.
+- **Export :** Permettre l'exportation du `expense.csv` actuel vers un emplacement choisi par l'utilisateur (Sauvegarde/Backup).
+- **UI :** Boutons "Importer" et "Exporter" dans un onglet Paramètres via `ft.FilePicker`.
+- **Validation :** Vérifier la structure des colonnes avant import et assurer l'intégrité des données à l'export.
 
 ---
 
-## ⬜ Fonctionnalité 6 — Redesign de la Vue Tantara (inspiré WhatsApp)
+## ⬜ Fonctionnalité 7 — Dashboard Unifié (Temoin + Kisary)
+**Objectif :** Fusionner la vue Résumé (Temoin) et la vue Graphique (Kisary) pour un pilotage en un clin d'œil.
+
+- **Layout :** Une seule vue principale combinant les indicateurs clés (Balance, Entrées, Sorties) et les graphiques d'évolution.
+- **Interactivité :** Les graphiques se mettent à jour dynamiquement selon les filtres appliqués au résumé (ex: filtre par mois).
+- **Navigation :** Réduction du nombre d'onglets pour une expérience utilisateur plus fluide (3 onglets -> 2 onglets : Dashboard & Tantara).
+
+---
+
+## ✅ Fonctionnalité 6 — Redesign de la Vue Tantara (inspiré WhatsApp)
 **Objectif :** Retravailler le design de l'onglet historique (Tantara) en s'inspirant des captures WhatsApp pour une interface plus lisible et moderne.
 
 - **Layout :** Adopter un style de liste à bulles/cartes avec séparation visuelle par date (en-têtes de jour)

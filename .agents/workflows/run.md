@@ -1,22 +1,22 @@
 ---
-description: Comment lancer, tester et déboguer l'Expense Tracker AMLG
+description: Comment lancer, tester et déboguer l'Expense Tracker IEL
 ---
 
-# Workflow Lancement & Debug — Expense Tracker AMLG
+# Workflow Lancement & Debug — Expense Tracker IEL
 
 ## 🚀 Lancer l'Application
 
 ### Mode Web (recommandé si `libmpv` absent)
 // turbo
 ```bash
-cd "/home/deuteuros/Documents/10 Projets/AMLG - Odoo - Cashew/Expense tracker/apk"
+cd "/home/deuteuros/Documents/10 Projets/IEL - Applied Microeconomics Learning Group/IEL - Expense tracker/apk"
 ./venv/bin/python main.py --web
 ```
 
 ### Mode Desktop
 // turbo
 ```bash
-cd "/home/deuteuros/Documents/10 Projets/AMLG - Odoo - Cashew/Expense tracker/apk"
+cd "/home/deuteuros/Documents/10 Projets/IEL - Applied Microeconomics Learning Group/IEL - Expense tracker/apk"
 ./venv/bin/python main.py
 ```
 
@@ -27,12 +27,12 @@ cd "/home/deuteuros/Documents/10 Projets/AMLG - Odoo - Cashew/Expense tracker/ap
 ### Vérifier que le venv existe
 // turbo
 ```bash
-ls "/home/deuteuros/Documents/10 Projets/AMLG - Odoo - Cashew/Expense tracker/apk/venv/bin/python"
+ls "/home/deuteuros/Documents/10 Projets/IEL - Applied Microeconomics Learning Group/IEL - Expense tracker/apk/venv/bin/python"
 ```
 
 ### Recréer le venv si nécessaire
 ```bash
-cd "/home/deuteuros/Documents/10 Projets/AMLG - Odoo - Cashew/Expense tracker/apk"
+cd "/home/deuteuros/Documents/10 Projets/IEL - Applied Microeconomics Learning Group/IEL - Expense tracker/apk"
 python3 -m venv venv
 ./venv/bin/pip install -r requirements.txt
 ```
@@ -56,7 +56,7 @@ python3 -m venv venv
 1. Vérifier le contenu de `expense.csv` :
 // turbo
 ```bash
-head -5 "/home/deuteuros/Documents/10 Projets/AMLG - Odoo - Cashew/Expense tracker/apk/expense.csv"
+head -5 "/home/deuteuros/Documents/10 Projets/IEL - Applied Microeconomics Learning Group/IEL - Expense tracker/apk/expense.csv"
 ```
 
 2. Format attendu des colonnes :

@@ -1,8 +1,8 @@
 ---
-description: Comment développer une fonctionnalité pour l'Expense Tracker AMLG (Flet Python)
+description: Comment développer une fonctionnalité pour l'Expense Tracker IEL (Flet Python)
 ---
 
-# Workflow Développement — Expense Tracker AMLG
+# Workflow Développement — Expense Tracker IEL
 
 > Ce workflow guide l'agent IA pour implémenter une fonctionnalité dans l'Expense Tracker. L'utilisateur travaille en mode **Vibe Coding** — il décrit ce qu'il veut, l'agent code.
 
@@ -60,7 +60,7 @@ Identifier la fonctionnalité à implémenter et son statut.
 ### 4. Tester
 // turbo
 ```bash
-cd "/home/deuteuros/Documents/10 Projets/AMLG - Odoo - Cashew/Expense tracker/apk"
+cd "/home/deuteuros/Documents/10 Projets/Applied MicroEconomics Learning Group/IEL - Expense tracker/apk"
 ./venv/bin/python main.py --web
 ```
 - Vérifier dans le navigateur à `http://localhost:PORT` (le port est affiché dans le terminal).

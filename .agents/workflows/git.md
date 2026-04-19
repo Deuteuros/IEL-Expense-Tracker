@@ -1,8 +1,8 @@
 ---
-description: Comment manipuler Git pour le projet Expense Tracker AMLG (offline, bundles USB)
+description: Comment manipuler Git pour le projet Expense Tracker IEL (offline, bundles USB)
 ---
 
-# Workflow Git — Expense Tracker AMLG
+# Workflow Git — Expense Tracker IEL
 
 > Ce workflow est destiné à l'agent IA. L'utilisateur ne connaît pas Git — l'agent doit exécuter toutes les commandes à sa place et expliquer simplement ce qui se passe.
 
@@ -10,7 +10,7 @@ description: Comment manipuler Git pour le projet Expense Tracker AMLG (offline,
 
 1. **JAMAIS de `git push` ni `git pull`** — il n'y a pas de remote Internet. Tout passe par des **bundles** sur clé USB.
 2. **Toujours utiliser `git -c core.pager=cat`** devant les commandes git pour éviter les blocages du pager dans le terminal.
-3. **Répertoire du projet** : `/home/deuteuros/Documents/10 Projets/AMLG - Odoo - Cashew/Expense tracker/apk`
+3. **Répertoire du projet** : `/home/deuteuros/Documents/10 Projets/Applied MicroEconomics Learning Group/IEL - Expense tracker/apk`
 4. **Branche principale** : `master`
 
 ---

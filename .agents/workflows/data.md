@@ -2,7 +2,7 @@
 description: Comment manipuler les données CSV de l'Expense Tracker (import, export, migration, nettoyage)
 ---
 
-# Workflow Données — Expense Tracker AMLG
+# Workflow Données — Expense Tracker IEL
 
 ## 📊 Structure des Données
 
@@ -31,7 +31,7 @@ date,categorie_flux,item,quantite,unite,prix_unitaire_mga,montant_total_mga,four
 ### Vérifier la compatibilité d'un fichier source
 // turbo
 ```bash
-head -1 "/home/deuteuros/Documents/10 Projets/AMLG - Odoo - Cashew/Expense tracker/apk/Journal d'activité Canteen depuis 2025.csv"
+head -1 "/home/deuteuros/Documents/10 Projets/IEL - Applied Microeconomics Learning Group/IEL - Expense tracker/apk/Journal d'activité Canteen depuis 2025.csv"
 ```
 Les colonnes doivent correspondre exactement au schéma ci-dessus.
 

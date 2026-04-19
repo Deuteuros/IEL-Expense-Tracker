@@ -1,3 +1,14 @@
+#+TITLE: Documentation Technique : Vue Résumé (views/summary.py)
+#+AUTHOR: Agentic Engineering Team
+#+DATE: [2026-02-22]
+
+* Rôle de la Vue
+Cette vue affiche l'état actuel de la caisse (Solde) ainsi que les totaux des revenus et des dépenses sous forme de cartes Material Design.
+
+* Structure Visuelle
+Elle utilise des =ft.Container= et des =ft.Card= pour donner un aspect professionnel. La couleur du solde change dynamiquement selon qu'il est positif (vert) ou négatif (rouge).
+
+#+begin_src python :tangle ../views/summary.py
 import flet as ft
 import database
 
@@ -5,6 +16,7 @@ def get_summary_view():
     income, expense, balance = database.get_summary_data()
     
     def create_card(title, value, color, icon):
+        # Création d'une carte réutilisable
         return ft.Container(
             content=ft.Column([
                 ft.Icon(icon, color=color, size=30),
@@ -16,21 +28,29 @@ def get_summary_view():
             bgcolor="surfacevariant",
             expand=True,
         )
+#+end_src
 
+* Assemblage de la Page
+La vue est construite de haut en bas avec un titre de bienvenue, le solde principal, et deux cartes côte à côte.
+
+#+begin_src python :tangle ../views/summary.py
     return ft.Container(
         content=ft.Column([
             ft.Container(
                 content=ft.Text("Manao ahoana!", size=28, weight="bold"),
                 padding=ft.Padding.only(left=20, top=40, bottom=10)
             ),
+            # Section Caisse (Solde)
             ft.Container(
                 content=ft.Column([
                     ft.Text("Caisse", size=16, color=ft.Colors.GREY_700),
-                    ft.Text(f"Ar {balance:,.0f}", size=36, weight="bold", color=ft.Colors.GREEN_700 if balance >= 0 else ft.Colors.RED_700),
+                    ft.Text(f"Ar {balance:,.0f}", size=36, weight="bold", 
+                           color=ft.Colors.GREEN_700 if balance >= 0 else ft.Colors.RED_700),
                 ]),
                 padding=20,
                 alignment=ft.Alignment(0,0),
             ),
+            # Cartes de détails
             ft.Row([
                 create_card("Miditra", income, ft.Colors.GREEN, ft.Icons.ARROW_DOWNWARD),
                 create_card("Fandaniana", expense, ft.Colors.RED, ft.Icons.ARROW_UPWARD),
@@ -39,3 +59,4 @@ def get_summary_view():
         padding=10,
         expand=True
     )
+#+end_src

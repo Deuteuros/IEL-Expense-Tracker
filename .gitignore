@@ -1,23 +1,19 @@
 # Python
-venv/
 __pycache__/
 *.py[cod]
 *$py.class
-.pytest_cache/
+venv/
+.env
 
-# Flet / Flutter / Build
+# Flet / Flutter builds
 build/
-.flet/
-.apk/
+flutter/
 *.apk
-bin/
-obj/
+*.exe
 
-# Data (Optionnel : décommentez si vous ne voulez pas partager vos dépenses)
-# expenses.csv
+# Data (Ignorer les CSV locaux pour éviter de commit des données sensibles)
+data/*.csv
 
 # OS
 .DS_Store
-.idea/
-.vscode/
-final_expense_tracker_v1.bundle
+Thumbs.db

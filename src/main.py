@@ -3,7 +3,6 @@ import database
 import config
 from views.summary import get_summary_view
 from views.history import get_history_view
-from views.charts import get_charts_view
 from components.segmented_control import CustomSegmentedControl, Segment
 
 def main(page: ft.Page):
@@ -61,15 +60,12 @@ def main(page: ft.Page):
             main_content.content = get_summary_view()
         elif index == 1:
             main_content.content = get_history_view(page)
-        elif index == 2:
-            main_content.content = get_charts_view()
         page.update()
 
     page.navigation_bar = ft.NavigationBar(
         destinations=[
             ft.NavigationBarDestination(icon=ft.Icons.HOME_OUTLINED, selected_icon=ft.Icons.HOME, label="Temoin"),
             ft.NavigationBarDestination(icon=ft.Icons.HISTORY, label="Tantara"),
-            ft.NavigationBarDestination(icon=ft.Icons.BAR_CHART, label="Kisary"),
         ],
         on_change=navigate,
         selected_index=0,
@@ -186,8 +182,6 @@ def main(page: ft.Page):
             main_content.content = get_summary_view()
         elif idx == 1:
             main_content.content = get_history_view(page)
-        elif idx == 2:
-            main_content.content = get_charts_view()
         page.update()
 
     # Expose refresh_view to allow views to trigger global refresh

@@ -2,7 +2,7 @@
 description: Comment installer le projet Expense Tracker sur un nouveau PC (collaborateur)
 ---
 
-# Workflow Installation — Expense Tracker AMLG
+# Workflow Installation — Expense Tracker IEL
 
 > Ce workflow est pour installer le projet sur le PC d'un **nouveau collaborateur** à partir d'un bundle Git.
 

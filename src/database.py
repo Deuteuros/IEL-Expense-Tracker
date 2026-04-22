@@ -177,3 +177,45 @@ def get_distribution_data(days=30):
     df = pd.read_sql_query(query, conn, params=(cutoff_date,))
     conn.close()
     return df.values.tolist()
+
+def export_to_csv(filepath):
+    """Exporte l'intégralité des transactions vers un fichier CSV externe."""
+    conn = get_connection()
+    df = pd.read_sql_query("SELECT * FROM transactions", conn)
+    conn.close()
+    
+    # Map back to CSV format if necessary (e.g. portefeuille name)
+    # For now, we use the raw columns
+    df.to_csv(filepath, index=False)
+
+def import_from_csv(filepath):
+    """Importe des transactions depuis un fichier externe (Ajout uniquement)."""
+    if not os.path.exists(filepath):
+        return False, "Fichier introuvable."
+    
+    try:
+        new_df = pd.read_csv(filepath)
+        
+        # Validation minimale des colonnes requises
+        required = ['date', 'categorie_flux', 'item', 'montant_total_mga']
+        if not all(col in new_df.columns for col in required):
+            return False, f"Format invalide. Colonnes requises : {', '.join(required)}"
+        
+        # Normalisation des colonnes avant l'import (Sécurité)
+        for col in COLUMNS:
+            if col not in new_df.columns:
+                new_df[col] = None
+        
+        # Réorganiser les colonnes pour correspondre à COLUMNS
+        new_df = new_df[COLUMNS]
+        
+        # Append to main CSV
+        new_df.to_csv(CSV_FILE, mode='a', header=not os.path.exists(CSV_FILE), index=False)
+        
+        # Refresh SQLite
+        sync_from_csv()
+        return True, f"{len(new_df)} hara-mira (transactions) voadika."
+    except Exception as e:
+        import traceback
+        print(traceback.format_exc()) # Log error to terminal
+        return False, f"Fahadisoana: {str(e)}"

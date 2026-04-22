@@ -11,8 +11,12 @@ flutter/
 *.apk
 *.exe
 
-# Data (Ignorer les CSV locaux pour éviter de commit des données sensibles)
+# Data (Ignorer les fichiers locaux pour éviter de commit des données sensibles)
 data/*.csv
+data/*.db
+
+# Scratch / Temporary
+scratch/
 
 # OS
 .DS_Store

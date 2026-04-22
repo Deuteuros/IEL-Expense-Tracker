@@ -3,23 +3,56 @@ import database
 import config
 from views.summary import get_summary_view
 from views.history import get_history_view
+from views.management import get_management_view
 from components.segmented_control import CustomSegmentedControl, Segment
 
-def main(page: ft.Page):
+async def main(page: ft.Page):
     page.title = "Cashew Expense Tracker"
     page.theme_mode = ft.ThemeMode.LIGHT
     page.theme = ft.Theme(color_scheme_seed="green", use_material3=True)
     page.padding = 0
 
     database.init_db()
+    
+    # --- FilePicker Logic (Import/Export) ---
+    file_picker = ft.FilePicker()
+    save_file_picker = ft.FilePicker()
+    
+    # Flet 0.80.2+ : On n'ajoute plus à l'overlay, on attend le résultat directement.
+    # Note: On garde les instances ici pour éviter la garbage collection si nécessaire.
+
+    async def trigger_import(e):
+        # On attend le résultat directement (Pattern moderne Flet 0.80+)
+        result = await file_picker.pick_files(allowed_extensions=["csv"])
+        if result: # result est une liste de fichiers
+            file_path = result[0].path
+            success, message = database.import_from_csv(file_path)
+            page.snack_bar = ft.SnackBar(
+                content=ft.Text(message),
+                bgcolor=ft.Colors.GREEN_700 if success else ft.Colors.RED_700
+            )
+            page.snack_bar.open = True
+            await refresh_view()
+            page.update()
+
+    async def trigger_export(e):
+        path = await save_file_picker.save_file(file_name="cashew_export.csv", allowed_extensions=["csv"])
+        if path:
+            database.export_to_csv(path)
+            page.snack_bar = ft.SnackBar(content=ft.Text(f"Dataly voa-export tany amin'ny: {path}"))
+            page.snack_bar.open = True
+            page.update()
+
+    page.trigger_import = trigger_import
+    page.trigger_export = trigger_export
 
     # --- Consent Check ---
-    def show_consent_dialog():
-        def on_consent_change(e):
+    async def show_consent_dialog():
+        async def on_consent_change(e):
             btn_continue.disabled = not e.control.value
             page.update()
 
-        def on_continue(e):
+        async def on_continue(e):
             config.update_config("consent_accepted", True)
             consent_dialog.open = False
             page.update()
@@ -49,30 +82,33 @@ def main(page: ft.Page):
         page.update()
 
     if not config.is_consent_given():
-        show_consent_dialog()
+        await show_consent_dialog()
 
     # --- Main Navigation Logic ---
     main_content = ft.Container(expand=True)
 
-    def navigate(e):
+    async def navigate(e):
         index = e.control.selected_index
         if index == 0:
-            main_content.content = get_summary_view()
+            main_content.content = get_summary_view(page)
         elif index == 1:
             main_content.content = get_history_view(page)
+        elif index == 2:
+            main_content.content = get_management_view(page)
         page.update()
 
     page.navigation_bar = ft.NavigationBar(
         destinations=[
             ft.NavigationBarDestination(icon=ft.Icons.HOME_OUTLINED, selected_icon=ft.Icons.HOME, label="Temoin"),
             ft.NavigationBarDestination(icon=ft.Icons.HISTORY, label="Tantara"),
+            ft.NavigationBarDestination(icon=ft.Icons.MORE_HORIZ, label="Fikirakirana"),
         ],
         on_change=navigate,
         selected_index=0,
     )
 
     # --- Add Entry Logic ---
-    def open_add_dialog(e):
+    async def open_add_dialog(e):
         cat_flux_selector = CustomSegmentedControl(
             segments=[
                 Segment(value="Miditra", label="Miditra", icon=ft.Icons.ADD),
@@ -87,7 +123,7 @@ def main(page: ft.Page):
         total_field = ft.TextField(label="Montant Total (Ar)", read_only=True, value="0")
         client_field = ft.TextField(label="Fournisseur / Client")
 
-        def update_total(e):
+        async def update_total(e):
             try:
                 qty = float(qty_field.value) if qty_field.value else 0
                 price = float(price_field.value) if price_field.value else 0
@@ -101,11 +137,11 @@ def main(page: ft.Page):
         qty_field.on_change = update_total
         price_field.on_change = update_total
         
-        def close_dialog(e):
+        async def close_dialog(e):
             dialog.open = False
             page.update()
 
-        def save_entry_callback(e):
+        async def save_entry_callback(e):
             if not qty_field.value or not price_field.value or not item_field.value:
                 if not qty_field.value: qty_field.error_text = "Ilaina ity"
                 if not price_field.value: price_field.error_text = "Ilaina ity"
@@ -147,7 +183,7 @@ def main(page: ft.Page):
                 client_field.value = ""
                 
                 # Refresh current view
-                refresh_view()
+                await refresh_view()
                 page.update()
             except ValueError:
                 page.snack_bar = ft.SnackBar(content=ft.Text("Nisy fahadisoana teo amin'ny isa"), bgcolor=ft.Colors.RED_700)
@@ -176,20 +212,23 @@ def main(page: ft.Page):
         dialog.open = True
         page.update()
 
-    def refresh_view():
+    async def refresh_view():
         idx = page.navigation_bar.selected_index
         if idx == 0:
-            main_content.content = get_summary_view()
+            main_content.content = get_summary_view(page)
         elif idx == 1:
             main_content.content = get_history_view(page)
+        elif idx == 2:
+            main_content.content = get_management_view(page)
         page.update()
 
-    # Expose refresh_view to allow views to trigger global refresh
+    # Expose refresh_view
     page.refresh_view = refresh_view
 
     # --- Initial View ---
-    main_content.content = get_summary_view()
+    main_content.content = get_summary_view(page)
     page.add(main_content)
+    page.update()
 
     page.floating_action_button = ft.FloatingActionButton(
         icon=ft.Icons.ADD,
@@ -198,15 +237,10 @@ def main(page: ft.Page):
     )
     page.update()
 
-# Pour éviter le Warning, on utilise le nouveau standard si disponible, 
-# mais ft.app(target=main) reste correct pour la version 0.80.2.
-# On peut spécifier le mode d'affichage ici.
 if __name__ == "__main__":
     import sys
     if "--web" in sys.argv:
-        # Mode web pour contourner l'absence de libmpv si nécessaire
         ft.app(target=main, view=ft.AppView.WEB_BROWSER)
     else:
-        # Mode Desktop par défaut
         ft.app(target=main)
 

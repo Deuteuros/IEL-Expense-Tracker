@@ -2,7 +2,7 @@ import flet as ft
 import database
 from datetime import datetime
 
-def get_summary_view():
+def get_summary_view(page: ft.Page):
     # 1. Fetch Data
     income, expense, balance = database.get_summary_data(days=30)
     evolution = database.get_evolution_data(days=30)
@@ -113,7 +113,9 @@ def get_summary_view():
                 bgcolor="surfacevariant",
                 border_radius=20,
             ),
-            
+
+            ft.Divider(height=20, color=ft.Colors.TRANSPARENT),
+
             ft.Container(height=40) # Extra bottom padding
             
         ], scroll=ft.ScrollMode.AUTO, expand=True, spacing=10),

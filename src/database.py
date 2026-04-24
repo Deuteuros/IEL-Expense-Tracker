@@ -161,6 +161,33 @@ def get_evolution_data(days=30):
     df['cumulative_balance'] = df['daily_net'].cumsum()
     return df[['date', 'cumulative_balance']].values.tolist()
 
+def get_total_balance():
+    """Calcule le solde total depuis le début."""
+    conn = get_connection()
+    cursor = conn.cursor()
+    # Income (Miditra/Vente)
+    cursor.execute("SELECT SUM(montant_total_mga) FROM transactions WHERE categorie_flux IN ('Miditra', 'Vente')")
+    income = cursor.fetchone()[0] or 0
+    # Expense (Fandaniana/Achat)
+    cursor.execute("SELECT SUM(montant_total_mga) FROM transactions WHERE categorie_flux IN ('Fandaniana', 'Achat')")
+    expense = cursor.fetchone()[0] or 0
+    conn.close()
+    return income - expense
+
+def get_category_distribution(days=30):
+    """Calcule la répartition par catégorie sur les X derniers jours."""
+    conn = get_connection()
+    cutoff_date = (datetime.now() - timedelta(days=days)).strftime("%Y-%m-%d")
+    query = """
+        SELECT categorie_flux, SUM(montant_total_mga) as total 
+        FROM transactions 
+        WHERE date >= ? 
+        GROUP BY categorie_flux
+    """
+    df = pd.read_sql_query(query, conn, params=(cutoff_date,))
+    conn.close()
+    return df.values.tolist()
+
 def get_distribution_data(days=30):
     """Calcule la répartition des dépenses par item sur les X derniers jours."""
     conn = get_connection()

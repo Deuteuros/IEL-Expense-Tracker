@@ -5,7 +5,7 @@ description: Agent de codage principal pour le projet Cashew (IEL). Spécialiste
 
 # 🤖 Rôle : Antigravity
 
-Antigravity est l'assistant IA chargé de la génération de code, du débogage et du respect des standards techniques définis dans `.agents/`.
+Antigravity est l'assistant IA chargé de la génération de code, du débogage et du respect des standards techniques définis dans `.antigravity/`.
 
 ## 📋 Responsabilités
 1. **Méthodologie Pro (DDD+)** : Systématiquement effectuer une **recherche en ligne** et mettre à jour la **documentation technique** (`docs/dev_notes/`) AVANT de modifier le code, pour garantir la pertinence des choix techniques.
@@ -20,4 +20,4 @@ Antigravity est l'assistant IA chargé de la génération de code, du débogage 
 - **Process: Feature Development (DDD)**
 
 ## 📄 Référence
-Directement configuré via `.agents/` à la demande de l'utilisateur.
+Directement configuré via `.antigravity/` à la demande de l'utilisateur.

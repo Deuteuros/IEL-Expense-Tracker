@@ -3,6 +3,8 @@ import database
 from datetime import datetime
 
 def get_summary_view(page: ft.Page):
+    # Responsive helper: base width
+    w = page.width or 360
     # 1. Fetch Data
     income, expense, balance = database.get_summary_data(days=30)
     total_balance = database.get_total_balance()
@@ -14,7 +16,7 @@ def get_summary_view(page: ft.Page):
         return ft.Container(
             content=ft.Column([
                 ft.Row([ft.Icon(icon, color=color, size=20), ft.Text(title, size=14, color=ft.Colors.GREY_700)]),
-                ft.Text(f"Ar {value:,.0f}", size=18, weight="bold"),
+                ft.Text(f"Ar {value:,.0f}", size=16 if w < 380 else 18, weight="bold"),
             ], spacing=5),
             padding=15,
             border_radius=15,
@@ -75,8 +77,8 @@ def get_summary_view(page: ft.Page):
             # 1. Total Balance Card (All time)
             ft.Container(
                 content=ft.Column([
-                    ft.Text("Solde Total (Hatramin'ny voalohany)", size=14, color=ft.Colors.GREY_700),
-                    ft.Text(f"Ar {total_balance:,.0f}", size=28, weight="bold", 
+                    ft.Text("Vola Tavela (Solde Total)", size=14, color=ft.Colors.GREY_700),
+                    ft.Text(f"Ar {total_balance:,.0f}", size=22 if w < 380 else 28, weight="bold", 
                            color=ft.Colors.GREEN_800 if total_balance >= 0 else ft.Colors.RED_800),
                 ], horizontal_alignment=ft.CrossAxisAlignment.CENTER),
                 padding=15,
@@ -91,7 +93,7 @@ def get_summary_view(page: ft.Page):
             ft.Container(
                 content=ft.Column([
                     ft.Text("Tao anatin'ny 30 andro", size=14, color=ft.Colors.GREY_700),
-                    ft.Text(f"Ar {balance:,.0f}", size=32, weight="bold", 
+                    ft.Text(f"Ar {balance:,.0f}", size=26 if w < 380 else 32, weight="bold", 
                            color=ft.Colors.GREEN_700 if balance >= 0 else ft.Colors.RED_700),
                 ], horizontal_alignment=ft.CrossAxisAlignment.CENTER),
                 padding=10,
@@ -111,10 +113,12 @@ def get_summary_view(page: ft.Page):
             
             ft.Divider(height=10, color=ft.Colors.TRANSPARENT),
             
-            # 4. Summary Cards (30 days)
-            ft.Row([
-                create_card("Miditra", income, ft.Colors.GREEN_700, ft.Icons.TRENDING_UP),
-                create_card("Fandaniana", expense, ft.Colors.RED_700, ft.Icons.TRENDING_DOWN),
+            # 4. Summary Cards (30 days) — responsive grid
+            ft.ResponsiveRow([
+                ft.Container(create_card("Miditra", income, ft.Colors.GREEN_700, ft.Icons.TRENDING_UP),
+                             col={"xs": 12, "sm": 6}),
+                ft.Container(create_card("Fandaniana", expense, ft.Colors.RED_700, ft.Icons.TRENDING_DOWN),
+                             col={"xs": 12, "sm": 6}),
             ], spacing=10),
             
             ft.Divider(height=10, color=ft.Colors.TRANSPARENT),
@@ -122,7 +126,7 @@ def get_summary_view(page: ft.Page):
             # 5. Pie Chart Distribution
             ft.Container(
                 content=ft.Column([
-                    ft.Text("Argent Rentrant vs Sortant (30 andro)", size=16, weight="bold"),
+                    ft.Text("Miditra vs Fandaniana (30 andro)", size=16, weight="bold"),
                     ft.Row([pie_chart], alignment=ft.MainAxisAlignment.CENTER),
                     ft.Column([
                         ft.Row([ft.Container(width=10, height=10, bgcolor=ft.Colors.GREEN_700), ft.Text("Miditra / Vente", size=12)]),

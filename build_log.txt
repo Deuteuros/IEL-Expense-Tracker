@@ -1,0 +1,42 @@
+Building Cashew APK...
+[20:13:12] Running build hooks...Running build hooks...Running package command  
+           Extra PyPi indexes:                                                  
+           Created temp directory: /tmp/serious_python_tempMOWUME               
+           Copying Python app from /home/deuteuros/Documents/10 Projets/IEL -   
+           Expense tracker/src to a temp directory                              
+           Configured Android/arm64-v8a platform with sitecustomize.py          
+           Installing [-r, /home/deuteuros/Documents/10 Projets/IEL - Expense   
+           tracker/src/requirements.txt] with pip command to                    
+           /home/deuteuros/Documents/10 Projets/IEL - Expense                   
+           tracker/src/build/site-packages/arm64-v8a                            
+                                                                                
+           ERROR: Cannot install -r /home/deuteuros/Documents/10 Projets/IEL -  
+           Expense tracker/src/requirements.txt (line 5) because these package  
+           versions have conflicting dependencies.                              
+           ERROR: ResolutionImpossible: for help visit                          
+           https://pip.pypa.io/en/latest/topics/dependency-resolution/#dealing-w
+           ith-dependency-conflicts                                             
+                                                                                
+[20:13:14] Doctor summary (to see all details, run flutter doctor -v):          
+           [!] Flutter (Channel stable, 3.38.6, on Zorin OS 18.1                
+           6.8.0-101-generic, locale fr_FR.UTF-8)                               
+               ! The flutter binary is not on your path. Consider adding        
+           /home/deuteuros/flutter/3.38.6/bin to your path.                     
+               ! The dart binary is not on your path. Consider adding           
+           /home/deuteuros/flutter/3.38.6/bin to your path.                     
+           [✓] Android toolchain - develop for Android devices (Android SDK     
+           version 36.0.0)                                                      
+           [✓] Chrome - develop for the web                                     
+           [✗] Linux toolchain - develop for Linux desktop                      
+               ✗ clang++ is required for Linux development.                     
+                 It is likely available from your distribution (e.g.: apt       
+           install clang), or can be downloaded from https://releases.llvm.org/ 
+           [✓] Connected device (2 available)                                   
+           [✓] Network resources                                                
+                                                                                
+           ! Doctor found issues in 2 categories.                               
+                                                                                
+╭──────────────────────────────────────────────────────────────────────────────╮
+│ Error building Flet app - see the log of failed command above.               │
+╰──────────────────────────────────────────────────────────────────────────────╯
+Build complete.

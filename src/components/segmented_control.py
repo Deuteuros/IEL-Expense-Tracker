@@ -19,12 +19,12 @@ class CustomSegmentedControl(ft.Container):
             self.content.controls.append(
                 ft.Container(
                     content=ft.Row([
-                        ft.Icon(seg.icon, size=18) if hasattr(seg, "icon") and seg.icon else ft.Container(),
-                        ft.Text(seg.label, weight="bold" if is_selected else None),
-                    ], alignment=ft.MainAxisAlignment.CENTER),
+                        ft.Icon(seg.icon, size=16) if hasattr(seg, "icon") and seg.icon else ft.Container(),
+                        ft.Text(seg.label, weight="bold" if is_selected else None, size=14, expand=True, text_align=ft.TextAlign.CENTER),
+                    ], alignment=ft.MainAxisAlignment.CENTER, spacing=5),
                     bgcolor=ft.Colors.WHITE if is_selected else ft.Colors.TRANSPARENT,
                     border_radius=20,
-                    padding=ft.padding.symmetric(15, 10),
+                    padding=ft.padding.symmetric(10, 5),
                     on_click=lambda e, idx=i: self.select(idx),
                     animate=ft.Animation(300, "decelerate"),
                     expand=True,

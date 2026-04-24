@@ -25,3 +25,10 @@
 
 ### 🐛 Débogage
 - **FilePicker Fix :** Résolution du bug "Unknown control" sur Linux par injection forcée et mise à jour explicite de l'overlay lors de l'initialisation.
+
+## 📅 [2026-04-24] - Résolution des erreurs de compilation Android
+### 🐛 Débogage & Déploiement
+- **Build Script Fix :** Mise à jour du script `build_apk.sh` pour utiliser directement l'exécutable Python de l'environnement virtuel (`./venv/bin/python3 ./venv/bin/flet`) et contourner les anciens chemins absolus.
+- **CLI Argument :** Remplacement de l'argument déprécié `--project-name` par `--project` dans la commande de build.
+- **Dependency Conflict :** Suppression de `kaleido` et `plotly` du fichier `src/requirements.txt` pour corriger les conflits de résolution `pip` lors du ciblage mobile.
+- **APK Généré :** L'application a été compilée avec succès pour Android.

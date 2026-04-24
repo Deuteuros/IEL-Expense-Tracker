@@ -99,7 +99,7 @@ async def main(page: ft.Page):
 
     page.navigation_bar = ft.NavigationBar(
         destinations=[
-            ft.NavigationBarDestination(icon=ft.Icons.HOME_OUTLINED, selected_icon=ft.Icons.HOME, label="Temoin"),
+            ft.NavigationBarDestination(icon=ft.Icons.HOME_OUTLINED, selected_icon=ft.Icons.HOME, label="Témoin"),
             ft.NavigationBarDestination(icon=ft.Icons.HISTORY, label="Tantara"),
             ft.NavigationBarDestination(icon=ft.Icons.MORE_HORIZ, label="Fikirakirana"),
         ],
@@ -116,12 +116,12 @@ async def main(page: ft.Page):
             ],
             selected_index=1, # Default to Fandaniana
         )
-        item_field = ft.TextField(label="Item (Zavatra)", autofocus=True)
-        qty_field = ft.TextField(label="Quantite", keyboard_type=ft.KeyboardType.NUMBER)
-        unit_field = ft.TextField(label="Unite (Ohatra: kg, lany...)")
-        price_field = ft.TextField(label="Prix Unitaire (Ar)", keyboard_type=ft.KeyboardType.NUMBER)
-        total_field = ft.TextField(label="Montant Total (Ar)", read_only=True, value="0")
-        client_field = ft.TextField(label="Fournisseur / Client")
+        item_field = ft.TextField(label="Zavatra (Item)", autofocus=True)
+        qty_field = ft.TextField(label="Isa (Quantité)", keyboard_type=ft.KeyboardType.NUMBER, expand=1)
+        unit_field = ft.TextField(label="Singa (Unité : kg, lany...)", expand=1)
+        price_field = ft.TextField(label="Vidy isany (Prix unitaire, Ar)", keyboard_type=ft.KeyboardType.NUMBER)
+        total_field = ft.TextField(label="Totaliny (Montant total, Ar)", read_only=True, value="0")
+        client_field = ft.TextField(label="Mpandray / Mpamatsy (Client / Fournisseur)")
 
         async def update_total(e):
             try:
@@ -192,7 +192,7 @@ async def main(page: ft.Page):
 
         dialog = ft.AlertDialog(
             title=ft.Row([
-                ft.Text("Ampidiro fandaniana / miditra"),
+                ft.Text("Ampidiro fandaniana / miditra", expand=True, size=18, weight=ft.FontWeight.BOLD),
                 ft.IconButton(ft.Icons.CLOSE, on_click=close_dialog),
             ], alignment=ft.MainAxisAlignment.SPACE_BETWEEN),
             content=ft.Column([
@@ -235,12 +235,19 @@ async def main(page: ft.Page):
         bgcolor=ft.Colors.GREEN_700,
         on_click=open_add_dialog,
     )
+
+    # --- Responsive: rebuild view on screen resize ---
+    async def on_page_resize(e):
+        await refresh_view()
+    page.on_resize = on_page_resize
+
     page.update()
 
 if __name__ == "__main__":
     import sys
     if "--web" in sys.argv:
-        ft.app(target=main, view=ft.AppView.WEB_BROWSER)
+        ft.app(target=main, view=ft.AppView.WEB_BROWSER, assets_dir="assets")
     else:
-        ft.app(target=main)
+        ft.app(target=main, assets_dir="assets")
+
 

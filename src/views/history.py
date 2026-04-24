@@ -11,7 +11,7 @@ MONTHS_MG = {
 
 DAYS_MG = {
     "Monday": "Alatsinainy", "Tuesday": "Talata", "Wednesday": "Alarobia",
-    "Thursday": "Kamisary", "Friday": "Zoma", "Saturday": "Sabotsy", "Sunday": "Alahady"
+    "Thursday": "Alakamisy", "Friday": "Zoma", "Saturday": "Sabotsy", "Sunday": "Alahady"
 }
 
 class HistoryView(ft.Column):
@@ -32,6 +32,10 @@ class HistoryView(ft.Column):
 
     def refresh(self, update=True):
         self.controls.clear()
+        # Responsive helper
+        w = self.main_page.width or 360
+        h_pad = 12 if w < 380 else 20
+        txt_day = 13 if w < 380 else 14
         
         # Header
         header_content = []
@@ -54,7 +58,7 @@ class HistoryView(ft.Column):
         self.controls.append(
             ft.Container(
                 content=ft.Row(header_content, alignment=ft.MainAxisAlignment.SPACE_BETWEEN),
-                padding=ft.padding.only(left=20, right=10, top=10, bottom=10)
+                padding=ft.padding.only(left=h_pad, right=10, top=10, bottom=10)
             )
         )
 
@@ -73,12 +77,12 @@ class HistoryView(ft.Column):
             y, m = map(int, month_s.split('-'))
             month_name = MONTHS_MG.get(m, str(m))
             month_label = month_name.lower()
-            year_label = str(y) if y != datetime.now().year else ""
+            year_label = str(y)  # toujours afficher l'année
             
             month_items.append(
                 ft.Container(
                     content=ft.Column([
-                        ft.Text(month_label, 
+                        ft.Text(f"{month_label} {year_label}", 
                                 color=ft.Colors.BLACK if is_selected else ft.Colors.GREY_500,
                                 weight=ft.FontWeight.BOLD if is_selected else ft.FontWeight.NORMAL,
                                 size=16),
@@ -144,15 +148,15 @@ class HistoryView(ft.Column):
                 eng_day = dt.strftime('%A')
                 mg_day = DAYS_MG.get(eng_day, eng_day)
                 month_name_mg = MONTHS_MG.get(dt.month, "").lower()
-                day_label = f"{mg_day} {dt.day} {month_name_mg}"
+                day_label = f"{mg_day} {dt.day} {month_name_mg} {dt.year}"
                 
                 list_items.append(
                     ft.Container(
                         content=ft.Row([
-                            ft.Text(day_label, color=ft.Colors.GREY_500, size=14),
-                            ft.Text(f"{day_net:,.0f} Ar", color=ft.Colors.GREY_600, size=14),
+                            ft.Text(day_label, color=ft.Colors.GREY_500, size=txt_day),
+                            ft.Text(f"{day_net:,.0f} Ar", color=ft.Colors.GREY_600, size=txt_day),
                         ], alignment=ft.MainAxisAlignment.SPACE_BETWEEN),
-                        padding=ft.padding.only(left=20, right=20, top=15, bottom=5)
+                        padding=ft.padding.only(left=h_pad, right=h_pad, top=15, bottom=5)
                     )
                 )
                 
@@ -168,6 +172,11 @@ class HistoryView(ft.Column):
             self.update()
 
     def create_transaction_card(self, idx, row):
+        # Responsive helper
+        w = self.main_page.width or 360
+        h_pad = 12 if w < 380 else 20
+        txt_item = 14 if w < 380 else 16
+        txt_amount = 14 if w < 380 else 16
         is_income = row['categorie_flux'] in ["Income", "Miditra", "Vente"]
         
         # UI logic: Icon selection
@@ -192,23 +201,23 @@ class HistoryView(ft.Column):
                 ft.Row([
                     ft.Container(
                         content=ft.Icon(icon, color=icon_color, size=24),
-                        width=48, height=48,
+                        width=44, height=44,
                         bgcolor=bg_color,
-                        border_radius=24,
+                        border_radius=22,
                     ),
                     ft.Column([
-                        ft.Text(row['item'], weight="bold", size=16),
-                        ft.Text(f"{row['quantite']} {row['unite']}" if row['unite'] else f"{row['quantite']}", size=13, color=ft.Colors.GREY_600),
+                        ft.Text(row['item'], weight="bold", size=txt_item),
+                        ft.Text(f"{row['quantite']} {row['unite']}" if row['unite'] else f"{row['quantite']}", size=12, color=ft.Colors.GREY_600),
                     ], spacing=2)
-                ], spacing=15),
+                ], spacing=12),
                 ft.Text(
                     f"{'- ' if not is_income else '+ '}{row['montant_total_mga']:,.0f} Ar",
                     color=ft.Colors.RED_500 if not is_income else ft.Colors.GREEN_600,
                     weight="bold",
-                    size=16
+                    size=txt_amount
                 )
             ], alignment=ft.MainAxisAlignment.SPACE_BETWEEN),
-            padding=ft.padding.symmetric(horizontal=20, vertical=10),
+            padding=ft.padding.symmetric(horizontal=h_pad, vertical=10),
             on_click=lambda e: print(f"Clicked {row['item']}")
         )
 

@@ -34,7 +34,7 @@ class SettingsView extends ConsumerWidget {
           _buildSectionHeader(context, 'Mombamomba (À propos)'),
           const ListTile(
             leading: Icon(Icons.info_outline),
-            title: Text('Cashew Expense Tracker'),
+            title: Text('CaisseCash'),
             subtitle: Text('Version 1.0.0 - Flutter Rewrite'),
           ),
         ],
@@ -87,7 +87,7 @@ class SettingsView extends ConsumerWidget {
   Future<void> _exportCsv(BuildContext context) async {
     String? outputFile = await FilePicker.platform.saveFile(
       dialogTitle: 'Safidio ny toerana hitehirizana ny CSV',
-      fileName: 'cashew_export.csv',
+      fileName: 'caissecash_export.csv',
       type: FileType.custom,
       allowedExtensions: ['csv'],
     );

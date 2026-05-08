@@ -1,9 +1,9 @@
-# IEL - Expense Tracker (Cashew)
+# CaisseCash (IEL - Expense Tracker)
 
 ## Overview
 Développement d'un écosystème logiciel modulaire, "Offline-First" et "Mobile-First", pour le suivi financier des Activités Génératrices de Revenus (AGR) à Madagascar.
 
-- **Stack** : Flet (Python), CSV structuré.
+- **Stack** : Flutter (Dart), SQLite.
 - **Méthodologie** : Directives-Driven Development (DDD).
 - **Cible** : Micro-entrepreneurs malgaches.
 

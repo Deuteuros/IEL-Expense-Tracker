@@ -14,6 +14,8 @@ flutter/
 # Data (Ignorer les fichiers locaux pour éviter de commit des données sensibles)
 data/*.csv
 data/*.db
+archive/python_project/data/*.csv
+archive/python_project/data/*.db
 
 # Scratch / Temporary
 scratch/
@@ -21,4 +23,12 @@ scratch/
 # OS
 .DS_Store
 Thumbs.db
-flutter_project/
+
+# Flutter/Dart
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+.metadata

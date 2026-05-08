@@ -1,4 +1,4 @@
-# Backlog & Visions Futures - Cashew (IEL)
+# Backlog & Visions Futures - CaisseCash (IEL)
 
 - [x] Correction "Unknown control: FilePicker" sur Linux.
 - [x] Refonte interface : Nouvel onglet "Fikirakirana" (Gestion).

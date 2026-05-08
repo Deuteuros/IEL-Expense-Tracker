@@ -1,0 +1,301 @@
+date,categorie_flux,item,quantite,unite,prix_unitaire,montant_total_mga,fournisseur_client,portefeuille
+2025-10-15,Achat,Cocotte N°2,1.0,Unité,130000.0,130000,Aimé (Ambodifara),Caisse
+2025-10-15,Achat,Cocotte N°1,1.0,Unité,100000.0,100000,Aimé (Ambodifara),Caisse
+2025-10-15,Achat,Cafetière 6M,3.0,Unité,30000.0,90000,TIA SHOP,Caisse
+2025-10-15,Achat,Sotro + fourchette,5.0,Unité,20000.0,100000,TIA SHOP,Caisse
+2025-10-15,Achat,Coupe avec sous tasse,5.0,Unité,37000.0,185000,TIA SHOP,Caisse
+2025-10-15,Achat,Saladier Rivina,10.0,Unité,20000.0,200000,TIA SHOP,Caisse
+2025-10-15,Achat,Bol M.M.,20.0,Unité,6000.0,120000,TIA SHOP,Caisse
+2025-10-15,Achat,Lily Rivina,5.0,Unité,40000.0,200000,TIA SHOP,Caisse
+2025-10-15,Achat,Coupe à glace,5.0,Unité,20000.0,100000,TIA SHOP,Caisse
+2025-10-15,Achat,Carafe,4.0,Unité,25000.0,100000,TIA SHOP,Caisse
+2025-10-15,Achat,Balance,2.0,Unité,35000.0,70000,TIA SHOP,Caisse
+2025-10-15,Achat,Verre à jus,5.0,Unité,20000.0,100000,TIA SHOP,Caisse
+2025-10-15,Achat,Couteau,3.0,Unité,15000.0,45000,,Caisse
+2025-10-15,Achat,Planche,2.0,Unité,10000.0,20000,,Caisse
+2025-10-28,Vente,Café,1.0,Tasse,1000.0,1000,Client_Direct,Caisse
+2025-10-28,Vente,Riz au brède,4.0,Plat,2000.0,8000,Client_Direct,Caisse
+2025-10-28,Vente,Jus,9.0,Verre,2000.0,18000,Client_Direct,Caisse
+2025-10-28,Vente,Thé,2.0,Tasse,500.0,1000,Client_Direct,Caisse
+2025-10-28,Achat,Sel,5.0,Sachet,300.0,1500,,Caisse
+2025-10-28,Achat,Huile,1.0,Litre,10000.0,10000,,Caisse
+2025-10-28,Achat,Vinaigre,1.0,Litre,1700.0,1700,,Caisse
+2025-10-28,Achat,Lait,1.0,Litre,3000.0,3000,,Caisse
+2025-10-28,Achat,Brède,1.0,Botte,500.0,500,,Caisse
+2025-10-28,Achat,Riz,1.0,kg,1000.0,1000,,Caisse
+2025-10-29,Vente,Café,5.0,Tasse,600.0,3000,Client_Direct,Caisse
+2025-10-29,Vente,Riz au brède,3.0,Plat,2000.0,6000,Client_Direct,Caisse
+2025-10-29,Vente,Lait,1.0,Tasse,4000.0,4000,Client_Direct,Caisse
+2025-10-29,Vente,Frite + Poulet,1.0,Plat,11000.0,11000,Client_Direct,Caisse
+2025-10-29,Achat,Lait,1.0,Litre,3000.0,3000,,Caisse
+2025-10-30,Vente,Café,1.0,Tasse,500.0,500,Client_Direct,Caisse
+2025-10-30,Vente,Riz au brède,5.0,Plat,2000.0,10000,Client_Direct,Caisse
+2025-10-30,Vente,Lait,4.0,Tasse,1000.0,4000,Client_Direct,Caisse
+2025-10-30,Vente,Thé,5.0,Tasse,1000.0,5000,Client_Direct,Caisse
+2025-10-30,Vente,Soupe,1.0,Plat,5000.0,5000,Client_Direct,Caisse
+2025-10-30,Vente,Jus,1.0,Verre,2000.0,2000,Client_Direct,Caisse
+2025-10-30,Achat,Riz,1.0,kg,2000.0,2000,,Caisse
+2025-10-30,Achat,Sucre,1.0,kg,5000.0,5000,,Caisse
+2025-10-30,Achat,Café,1.0,Sachet,3000.0,3000,,Caisse
+2025-10-30,Achat,Brède,1.0,Botte,500.0,500,,Caisse
+2025-10-30,Achat,Kitoza,1.0,kg,1000.0,1000,,Caisse
+2025-10-31,Vente,Riz au brède,3.0,Plat,2000.0,6000,Client_Direct,Caisse
+2025-10-31,Vente,Thé,1.0,Tasse,500.0,500,Client_Direct,Caisse
+2025-10-31,Vente,Lait,1.0,Tasse,1000.0,1000,Client_Direct,Caisse
+2025-11-03,Vente,Lait,3.0,Tasse,666.67,2000,Client_Direct,Caisse
+2025-11-03,Vente,Riz au brède,5.0,Plat,2000.0,10000,Client_Direct,Caisse
+2025-11-03,Vente,Café,2.0,Tasse,750.0,1500,Client_Direct,Caisse
+2025-11-03,Achat,Oeuf,3.0,Sachet,500.0,1500,,Caisse
+2025-11-04,Vente,Riz au brède,5.0,Plat,2000.0,10000,Client_Direct,Caisse
+2025-11-04,Vente,Lait,3.0,Tasse,1000.0,3000,Client_Direct,Caisse
+2025-11-04,Vente,Café,3.0,Tasse,500.0,1500,Client_Direct,Caisse
+2025-11-04,Vente,Jus,4.0,Verre,2000.0,8000,Client_Direct,Caisse
+2025-11-04,Achat,Lait,1.0,Litre,3000.0,3000,,Caisse
+2025-11-04,Achat,Café,1.0,Sachet,2000.0,2000,,Caisse
+2025-11-04,Achat,Sucre,1.0,kg,3500.0,3500,,Caisse
+2025-11-05,Vente,Café,2.0,Tasse,500.0,1000,Client_Direct,Caisse
+2025-11-05,Vente,Petit pain,10.0,Plat,600.0,6000,Client_Direct,Caisse
+2025-11-05,Vente,Lait,3.0,Tasse,1000.0,3000,Client_Direct,Caisse
+2025-11-05,Vente,Thé,3.0,Tasse,500.0,1500,Client_Direct,Caisse
+2025-11-05,Vente,Soupe,1.0,Plat,5000.0,5000,Client_Direct,Caisse
+2025-11-05,Vente,Riz au brède,1.0,Plat,5000.0,5000,Client_Direct,Caisse
+2025-11-05,Vente,Jus,6.0,Verre,2000.0,12000,Client_Direct,Caisse
+2025-11-05,Achat,Jus,1.0,Litre,8000.0,8000,,Caisse
+2025-11-05,Achat,Café,1.0,Sachet,3000.0,3000,,Caisse
+2025-11-05,Achat,Lait,1.0,Litre,3000.0,3000,,Caisse
+2025-11-06,Vente,Café,4.0,Tasse,500.0,2000,Client_Direct,Caisse
+2025-11-06,Vente,Riz au brède,5.0,Plat,2000.0,10000,Client_Direct,Caisse
+2025-11-06,Vente,Lait,5.0,Tasse,1000.0,5000,Client_Direct,Caisse
+2025-11-06,Vente,Petit pain,10.0,Plat,600.0,6000,Client_Direct,Caisse
+2025-11-06,Vente,Petit pain,6.0,Plat,500.0,3000,Client_Direct,Caisse
+2025-11-06,Vente,Soupe,1.0,Plat,5000.0,5000,Client_Direct,Caisse
+2025-11-06,Vente,Jus,3.0,Verre,2000.0,6000,Client_Direct,Caisse
+2025-11-06,Vente,Riz au brède,1.0,Plat,3000.0,3000,Client_Direct,Caisse
+2025-11-06,Vente,Laoka,1.0,Plat,2000.0,2000,Client_Direct,Caisse
+2025-11-06,Vente,Mine sao garni,1.0,Plat,9000.0,9000,Client_Direct,Caisse
+2025-11-06,Vente,Frite,1.0,Plat,3500.0,3500,Client_Direct,Caisse
+2025-11-06,Achat,Oeuf,1.0,Sachet,1000.0,1000,,Caisse
+2025-11-06,Achat,Viande hachée,1.0,kg,2000.0,2000,,Caisse
+2025-11-06,Achat,Lait,1.0,Litre,3000.0,3000,,Caisse
+2025-11-06,Achat,Riz,1.0,kg,2000.0,2000,,Caisse
+2025-11-06,Achat,Brède,1.0,Botte,500.0,500,,Caisse
+2025-11-06,Achat,Café,1.0,Sachet,3000.0,3000,,Caisse
+2025-11-07,Vente,Riz au brède,4.0,Plat,2500.0,10000,Client_Direct,Caisse
+2025-11-07,Vente,Café,2.0,Tasse,750.0,1500,Client_Direct,Caisse
+2025-11-07,Vente,Oeuf,2.0,Plat,1000.0,2000,Client_Direct,Caisse
+2025-11-07,Vente,Lait,4.0,Tasse,1000.0,4000,Client_Direct,Caisse
+2025-11-07,Vente,Frite,1.0,Plat,5000.0,5000,Client_Direct,Caisse
+2025-11-07,Vente,Riz blanc,2.0,Plat,4000.0,8000,Client_Direct,Caisse
+2025-11-07,Vente,Poulet curry,2.0,Plat,2000.0,4000,Client_Direct,Caisse
+2025-11-07,Vente,Soupe,1.0,Plat,5000.0,5000,Client_Direct,Caisse
+2025-11-07,Vente,Pilon + frite,2.0,Plat,3750.0,7500,Client_Direct,Caisse
+2025-11-07,Vente,Poulet curry,1.0,Plat,7500.0,7500,Client_Direct,Caisse
+2025-11-07,Vente,Riz simple,1.0,Plat,2000.0,2000,Client_Direct,Caisse
+2025-11-07,Achat,Paille de fer,1.0,Sachet,1000.0,1000,,Caisse
+2025-11-07,Achat,Oeuf,1.0,Sachet,2400.0,2400,,Caisse
+2025-11-07,Achat,Riz,1.0,kg,6000.0,6000,,Caisse
+2025-11-07,Achat,Bloom,1.0,Sachet,3500.0,3500,,Caisse
+2025-11-07,Achat,Sel,1.0,Sachet,1500.0,1500,,Caisse
+2025-11-07,Achat,Viande hachée,1.0,kg,2000.0,2000,,Caisse
+2025-11-07,Achat,Lait,1.0,Litre,3000.0,3000,,Caisse
+2025-11-07,Achat,Gadana,1.0,Botte,3000.0,3000,,Caisse
+2025-11-07,Achat,Laoka afa,1.0,Plat,3000.0,3000,,Caisse
+2025-11-10,Vente,Café,3.0,Tasse,666.67,2000,Client_Direct,Caisse
+2025-11-10,Vente,Riz au brède,4.0,Plat,2000.0,8000,Client_Direct,Caisse
+2025-11-10,Vente,Laoka,1.0,Plat,1000.0,1000,Client_Direct,Caisse
+2025-11-10,Vente,Jus,1.0,Verre,1500.0,1500,Client_Direct,Caisse
+2025-11-10,Vente,Riz au brède,1.0,Plat,5000.0,5000,Client_Direct,Caisse
+2025-11-10,Achat,Oignon,1.0,Botte,4000.0,4000,,Caisse
+2025-11-10,Achat,Tomate,1.0,Botte,3000.0,3000,,Caisse
+2025-11-10,Achat,Angivy,1.0,Botte,7000.0,7000,,Caisse
+2025-11-10,Achat,Gadana,1.0,Botte,3000.0,3000,,Caisse
+2025-11-11,Vente,Café,2.0,Tasse,750.0,1500,Client_Direct,Caisse
+2025-11-11,Vente,Lait,3.0,Tasse,1000.0,3000,Client_Direct,Caisse
+2025-11-11,Vente,Riz au brède,3.0,Plat,2000.0,6000,Client_Direct,Caisse
+2025-11-11,Vente,Soupe,5.0,Plat,5000.0,25000,Client_Direct,Caisse
+2025-11-11,Vente,Frite,1.0,Plat,3500.0,3500,Client_Direct,Caisse
+2025-11-11,Vente,Spaghetti + Poulet,1.0,Plat,7500.0,7500,Client_Direct,Caisse
+2025-11-11,Vente,Jus,2.0,Verre,1500.0,3000,Client_Direct,Caisse
+2025-11-11,Achat,Oeuf,10.0,Sachet,500.0,5000,,Caisse
+2025-11-11,Achat,Pâte,1.0,kg,5000.0,5000,,Caisse
+2025-11-11,Achat,Sucre,1.0,kg,5000.0,5000,,Caisse
+2025-11-11,Achat,Manioc,1.0,kg,4000.0,4000,,Caisse
+2025-11-11,Achat,Kitoza,1.0,kg,10000.0,10000,,Caisse
+2025-11-11,Achat,Brède,1.0,Botte,500.0,500,,Caisse
+2025-11-12,Vente,Riz au brède,6.0,Plat,2000.0,12000,Client_Direct,Caisse
+2025-11-12,Vente,Lait,3.0,Tasse,1000.0,3000,Client_Direct,Caisse
+2025-11-12,Vente,Jus,7.0,Verre,1428.57,10000,Client_Direct,Caisse
+2025-11-12,Achat,Vinaigre,1.0,Litre,2000.0,2000,,Caisse
+2025-11-12,Achat,Sel,1.0,Sachet,1000.0,1000,,Caisse
+2025-11-12,Achat,Lait,1.0,Litre,3000.0,3000,,Caisse
+2025-11-13,Vente,Thé,1.0,Tasse,500.0,500,Client_Direct,Caisse
+2025-11-13,Vente,Lait,3.0,Tasse,1000.0,3000,Client_Direct,Caisse
+2025-11-13,Vente,Riz au brède,5.0,Plat,2000.0,10000,Client_Direct,Caisse
+2025-11-13,Vente,Café,1.0,Tasse,500.0,500,Client_Direct,Caisse
+2025-11-14,Vente,Riz au brède,5.0,Plat,2000.0,10000,Client_Direct,Caisse
+2025-11-14,Vente,Lait,5.0,Tasse,1000.0,5000,Client_Direct,Caisse
+2025-11-14,Vente,Jus,7.0,Verre,1285.71,9000,Client_Direct,Caisse
+2025-11-14,Vente,Petit paté + thé,1.0,Plat,13000.0,13000,Client_Direct,Caisse
+2025-11-14,Achat,Huile,1.0,Litre,10000.0,10000,,Caisse
+2025-11-14,Achat,Bureau,1.0,Unité,9000.0,9000,,Caisse
+2025-11-17,Vente,Café,1.0,Tasse,1000.0,1000,Client_Direct,Caisse
+2025-11-17,Vente,Riz au brède,4.0,Plat,2000.0,8000,Client_Direct,Caisse
+2025-11-17,Vente,Oeuf,3.0,Plat,1000.0,3000,Client_Direct,Caisse
+2025-11-17,Vente,Lait,3.0,Tasse,1000.0,3000,Client_Direct,Caisse
+2025-11-17,Vente,Jus,4.0,Verre,1875.0,7500,Client_Direct,Caisse
+2025-11-17,Achat,Fraise,1.0,kg,3000.0,3000,,Caisse
+2025-11-17,Achat,Sucre,1.0,kg,5000.0,5000,,Caisse
+2025-11-17,Achat,Lait,1.0,Litre,3000.0,3000,,Caisse
+2025-11-18,Vente,Lait,3.0,Tasse,1000.0,3000,Client_Direct,Caisse
+2025-11-18,Vente,Riz au brède,6.0,Plat,2000.0,12000,Client_Direct,Caisse
+2025-11-18,Vente,Café,2.0,Tasse,1000.0,2000,Client_Direct,Caisse
+2025-11-18,Vente,Jus,4.0,Verre,2750.0,11000,Client_Direct,Caisse
+2025-11-18,Vente,Frite,2.0,Plat,3000.0,6000,Client_Direct,Caisse
+2025-11-18,Achat,Charbon,1.0,Sachet,5000.0,5000,,Caisse
+2025-11-18,Achat,Huile,1.0,Litre,5000.0,5000,,Caisse
+2025-11-18,Achat,Sel,1.0,Sachet,2000.0,2000,,Caisse
+2025-11-18,Achat,Patate,5.0,kg,2000.0,10000,,Caisse
+2025-11-18,Achat,Huile,1.0,Litre,1000.0,1000,,Caisse
+2025-11-18,Achat,Spaghetti,2.0,kg,3000.0,6000,,Caisse
+2025-11-18,Achat,138,1.0,Unité,5000.0,5000,,Caisse
+2025-11-18,Achat,Pistolet,1.5,kg,20000.0,30000,,Caisse
+2025-11-18,Achat,Côte,1.0,kg,22000.0,22000,,Caisse
+2025-11-18,Achat,Sauce dark,1.0,kg,12000.0,12000,,Caisse
+2025-11-18,Achat,Sauce huitre,1.0,kg,14000.0,14000,,Caisse
+2025-11-18,Achat,Bloom,1.0,Sachet,3000.0,3000,,Caisse
+2025-11-19,Vente,Lait,4.0,Tasse,875.0,3500,Client_Direct,Caisse
+2025-11-19,Vente,Riz au brède,5.0,Plat,2000.0,10000,Client_Direct,Caisse
+2025-11-19,Vente,Jus,7.0,Verre,1500.0,10500,Client_Direct,Caisse
+2025-11-19,Vente,Riz au brède,1.0,Plat,3000.0,3000,Client_Direct,Caisse
+2025-11-19,Vente,Laoka,1.0,Plat,2000.0,2000,Client_Direct,Caisse
+2025-11-21,Vente,Riz au brède,5.0,Plat,2000.0,10000,Client_Direct,Caisse
+2025-11-21,Vente,Lait,3.0,Tasse,1000.0,3000,Client_Direct,Caisse
+2025-11-21,Vente,Jus,6.0,Verre,1500.0,9000,Client_Direct,Caisse
+2025-11-21,Vente,Riz au brède,3.0,Plat,3000.0,9000,Client_Direct,Caisse
+2025-11-21,Vente,Riz au brède,1.0,Plat,7500.0,7500,Client_Direct,Caisse
+2025-11-21,Achat,Sucre,1.0,kg,5000.0,5000,,Caisse
+2025-11-21,Achat,Mangue,1.0,kg,3000.0,3000,,Caisse
+2025-11-24,Vente,Riz au brède,5.0,Plat,2000.0,10000,Client_Direct,Caisse
+2025-11-24,Vente,Lait,4.0,Tasse,1000.0,4000,Client_Direct,Caisse
+2025-11-24,Vente,Café,1.0,Tasse,1000.0,1000,Client_Direct,Caisse
+2025-11-24,Vente,Jus,5.0,Verre,1500.0,7500,Client_Direct,Caisse
+2025-11-24,Vente,Riz au brède,2.0,Plat,3000.0,6000,Client_Direct,Caisse
+2025-11-24,Vente,Frite,1.0,Plat,3000.0,3000,Client_Direct,Caisse
+2025-11-25,Vente,Riz au brède,4.0,Plat,2000.0,8000,Client_Direct,Caisse
+2025-11-25,Vente,Lait,4.0,Tasse,1000.0,4000,Client_Direct,Caisse
+2025-11-25,Vente,Jus,4.0,Verre,1500.0,6000,Client_Direct,Caisse
+2025-11-25,Vente,Riz au brède,2.0,Plat,1500.0,3000,Client_Direct,Caisse
+2025-11-26,Vente,Lait,4.0,Tasse,1000.0,4000,Client_Direct,Caisse
+2025-11-26,Vente,Riz au brède,6.0,Plat,2000.0,12000,Client_Direct,Caisse
+2025-11-26,Vente,Jus,2.0,Verre,1500.0,3000,Client_Direct,Caisse
+2025-11-26,Achat,Sucre,1.0,kg,3000.0,3000,,Caisse
+2025-11-26,Achat,Mangue,1.0,kg,2000.0,2000,,Caisse
+2025-11-26,Achat,Fraise,1.0,kg,1500.0,1500,,Caisse
+2025-11-27,Vente,Riz au brède,5.0,Plat,2000.0,10000,Client_Direct,Caisse
+2025-11-27,Vente,Lait,3.0,Tasse,1000.0,3000,Client_Direct,Caisse
+2025-11-27,Vente,Café,2.0,Tasse,1000.0,2000,Client_Direct,Caisse
+2025-11-27,Vente,Jus,5.0,Verre,1500.0,7500,Client_Direct,Caisse
+2025-11-27,Vente,Frite,2.0,Plat,5250.0,10500,Client_Direct,Caisse
+2025-11-27,Vente,Riz au brède,1.0,Plat,3000.0,3000,Client_Direct,Caisse
+2025-11-28,Vente,Riz au brède,5.0,Plat,2000.0,10000,Client_Direct,Caisse
+2025-11-28,Vente,Café,2.0,Tasse,1000.0,2000,Client_Direct,Caisse
+2025-11-28,Vente,Lait,4.0,Tasse,1000.0,4000,Client_Direct,Caisse
+2025-11-28,Vente,Jus,9.0,Verre,1500.0,13500,Client_Direct,Caisse
+2025-11-28,Vente,Frite,1.0,Plat,3500.0,3500,Client_Direct,Caisse
+2025-12-01,Vente,Riz au brède,2.0,Plat,1000.0,2000,Client_Direct,Caisse
+2025-12-01,Vente,Lait,3.0,Tasse,1000.0,3000,Client_Direct,Caisse
+2025-12-01,Vente,Café,3.0,Tasse,1000.0,3000,Client_Direct,Caisse
+2025-12-01,Vente,Jus,8.0,Verre,1500.0,12000,Client_Direct,Caisse
+2025-12-02,Vente,Riz au brède,4.0,Plat,2000.0,8000,Client_Direct,Caisse
+2025-12-02,Vente,Lait,3.0,Tasse,666.67,2000,Client_Direct,Caisse
+2025-12-02,Vente,Café,4.0,Tasse,1000.0,4000,Client_Direct,Caisse
+2025-12-02,Vente,Jus,9.0,Verre,1500.0,13500,Client_Direct,Caisse
+2025-12-03,Vente,Riz au brède,6.0,Plat,2000.0,12000,Client_Direct,Caisse
+2025-12-03,Vente,Lait,4.0,Tasse,1000.0,4000,Client_Direct,Caisse
+2025-12-03,Vente,Café,1.0,Tasse,1000.0,1000,Client_Direct,Caisse
+2025-12-03,Vente,Jus,1.0,Verre,1500.0,1500,Client_Direct,Caisse
+2025-12-03,Vente,Riz au brède,1.0,Plat,3000.0,3000,Client_Direct,Caisse
+2025-12-03,Vente,Riz au brède,4.0,Plat,2000.0,8000,Client_Direct,Caisse
+2025-12-03,Vente,Lait,4.0,Tasse,1000.0,4000,Client_Direct,Caisse
+2025-12-03,Vente,Jus,10.0,Verre,1500.0,15000,Client_Direct,Caisse
+2025-12-03,Vente,Mine sao,2.0,Plat,8000.0,16000,Client_Direct,Caisse
+2025-12-04,Vente,Riz au brède,4.0,Plat,2000.0,8000,Client_Direct,Caisse
+2025-12-04,Vente,Lait,5.0,Tasse,1000.0,5000,Client_Direct,Caisse
+2025-12-04,Vente,Café,2.0,Tasse,500.0,1000,Client_Direct,Caisse
+2025-12-04,Vente,Jus,4.0,Verre,2500.0,10000,Client_Direct,Caisse
+2025-12-04,Vente,Frite,1.0,Plat,4500.0,4500,Client_Direct,Caisse
+2025-12-08,Vente,Riz au brède,6.0,Plat,2000.0,12000,Client_Direct,Caisse
+2025-12-08,Vente,Lait,4.0,Tasse,1000.0,4000,Client_Direct,Caisse
+2025-12-08,Vente,Café,3.0,Tasse,500.0,1500,Client_Direct,Caisse
+2025-12-08,Vente,Jus,5.0,Verre,1500.0,7500,Client_Direct,Caisse
+2025-12-09,Vente,Riz au brède,7.0,Plat,1714.29,12000,Client_Direct,Caisse
+2025-12-09,Vente,Café,1.0,Tasse,500.0,500,Client_Direct,Caisse
+2025-12-09,Vente,Lait,4.0,Tasse,1000.0,4000,Client_Direct,Caisse
+2025-12-09,Vente,Jus,5.0,Verre,1500.0,7500,Client_Direct,Caisse
+2025-12-10,Vente,Riz au brède,5.0,Plat,2400.0,12000,Client_Direct,Caisse
+2025-12-10,Vente,Lait,3.0,Tasse,1333.33,4000,Client_Direct,Caisse
+2025-12-10,Vente,Café,3.0,Tasse,0.0,0,Client_Direct,Caisse
+2025-12-10,Vente,Jus,2.0,Verre,0.0,0,Client_Direct,Caisse
+2026-01-07,Vente,Riz au brède,9.0,Plat,0.0,0,Client_Direct,Caisse
+2026-01-07,Vente,Lait,2.0,Tasse,0.0,0,Client_Direct,Caisse
+2026-01-07,Vente,Frite,1.0,Plat,0.0,0,Client_Direct,Caisse
+2026-01-07,Vente,Café,2.0,Tasse,0.0,0,Client_Direct,Caisse
+2026-01-07,Vente,Soupe,1.0,Plat,0.0,0,Client_Direct,Caisse
+2026-04-25,Fandaniana,Loyer,1,pcs,7368,7368,Client A,Caisse
+2026-04-24,Vente,Internet,4,pcs,5065,20260,Boutique XYZ,Caisse
+2026-04-24,Fandaniana,Service client,5,pcs,9212,46060,JIRAMA,Caisse
+2026-04-24,Miditra,Transport,3,pcs,17021,51063,JIRAMA,Caisse
+2026-04-23,Achat,Service client,1,pcs,32194,32194,Supermarché,Caisse
+2026-04-23,Miditra,Vente produit,4,pcs,17888,71552,Telma,Caisse
+2026-04-22,Miditra,Alimentation,1,pcs,24467,24467,Boutique XYZ,Caisse
+2026-04-22,Miditra,Loyer,1,pcs,1839,1839,Supermarché,Caisse
+2026-04-22,Miditra,Transport,5,pcs,20000,100000,Supermarché,Caisse
+2026-04-21,Fandaniana,Vente produit,5,pcs,20278,101390,Client A,Caisse
+2026-04-20,Miditra,Loyer,1,pcs,42479,42479,Telma,Caisse
+2026-04-20,Miditra,Alimentation,4,pcs,27467,109868,JIRAMA,Caisse
+2026-04-20,Fandaniana,Service client,2,pcs,1950,3900,Telma,Caisse
+2026-04-19,Achat,Internet,2,pcs,37233,74466,Supermarché,Caisse
+2026-04-18,Miditra,Internet,1,pcs,22963,22963,Boutique XYZ,Caisse
+2026-04-18,Miditra,Service client,3,pcs,27515,82545,JIRAMA,Caisse
+2026-04-18,Miditra,Vente produit,1,pcs,10093,10093,Telma,Caisse
+2026-04-17,Fandaniana,Vente produit,1,pcs,25958,25958,Boutique XYZ,Caisse
+2026-04-17,Vente,Alimentation,3,pcs,9521,28563,Client A,Caisse
+2026-04-16,Achat,Loyer,5,pcs,36743,183715,Telma,Caisse
+2026-04-16,Fandaniana,Service client,3,pcs,18395,55185,JIRAMA,Caisse
+2026-04-15,Fandaniana,Loyer,4,pcs,13411,53644,Supermarché,Caisse
+2026-04-14,Miditra,Alimentation,2,pcs,44709,89418,Boutique XYZ,Caisse
+2026-04-13,Achat,Vente produit,4,pcs,9820,39280,Telma,Caisse
+2026-04-13,Miditra,Alimentation,3,pcs,25770,77310,Boutique XYZ,Caisse
+2026-04-13,Achat,Vente produit,2,pcs,1132,2264,Telma,Caisse
+2026-04-12,Achat,Vente produit,3,pcs,37183,111549,Client A,Caisse
+2026-04-12,Vente,Transport,1,pcs,9868,9868,JIRAMA,Caisse
+2026-04-11,Fandaniana,Internet,5,pcs,37286,186430,Boutique XYZ,Caisse
+2026-04-10,Fandaniana,Loyer,4,pcs,9603,38412,JIRAMA,Caisse
+2026-04-09,Achat,Alimentation,3,pcs,46047,138141,Telma,Caisse
+2026-04-08,Vente,Transport,2,pcs,37237,74474,Client A,Caisse
+2026-04-07,Achat,Internet,5,pcs,33479,167395,Telma,Caisse
+2026-04-07,Fandaniana,Loyer,5,pcs,41719,208595,JIRAMA,Caisse
+2026-04-07,Miditra,Alimentation,5,pcs,23588,117940,Supermarché,Caisse
+2026-04-06,Achat,Transport,2,pcs,21734,43468,Boutique XYZ,Caisse
+2026-04-06,Miditra,Vente produit,5,pcs,21969,109845,Supermarché,Caisse
+2026-04-06,Miditra,Internet,3,pcs,12377,37131,JIRAMA,Caisse
+2026-04-05,Vente,Vente produit,4,pcs,7302,29208,Supermarché,Caisse
+2026-04-05,Fandaniana,Vente produit,1,pcs,4259,4259,Boutique XYZ,Caisse
+2026-04-04,Fandaniana,Internet,4,pcs,45014,180056,Client A,Caisse
+2026-04-03,Achat,Loyer,3,pcs,39744,119232,Boutique XYZ,Caisse
+2026-04-03,Achat,Internet,4,pcs,29403,117612,JIRAMA,Caisse
+2026-04-03,Vente,Internet,5,pcs,14985,74925,Telma,Caisse
+2026-04-02,Achat,Internet,5,pcs,48215,241075,Telma,Caisse
+2026-04-01,Achat,Loyer,1,pcs,4536,4536,Telma,Caisse
+2026-04-01,Miditra,Internet,4,pcs,39175,156700,Supermarché,Caisse
+2026-03-31,Fandaniana,Internet,2,pcs,18949,37898,Client A,Caisse
+2026-03-30,Vente,Loyer,5,pcs,30044,150220,Telma,Caisse
+2026-03-30,Fandaniana,Internet,3,pcs,26159,78477,Telma,Caisse
+2026-03-30,Achat,Transport,5,pcs,11703,58515,Telma,Caisse
+2026-03-29,Achat,Service client,2,pcs,31090,62180,Boutique XYZ,Caisse
+2026-03-29,Miditra,Service client,4,pcs,40492,161968,Telma,Caisse
+2026-03-28,Miditra,Vente produit,3,pcs,48569,145707,JIRAMA,Caisse
+2026-03-27,Vente,Service client,5,pcs,1887,9435,Supermarché,Caisse
+2026-03-27,Miditra,Transport,5,pcs,15067,75335,JIRAMA,Caisse
+2026-03-27,Fandaniana,Service client,2,pcs,26438,52876,Telma,Caisse
+2026-03-26,Vente,Internet,1,pcs,16047,16047,Boutique XYZ,Caisse

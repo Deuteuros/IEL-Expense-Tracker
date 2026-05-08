@@ -1,5 +1,0 @@
-flet==0.80.2
-flet-charts
-pandas
-plotly
-kaleido

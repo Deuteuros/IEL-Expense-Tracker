@@ -20,6 +20,16 @@
     - **Mapping Dynamique :** Les portefeuilles sont désormais mappés par nom au lieu d'ID statiques.
 - **Documentation :** Création du [RUN_GUIDE.md](file:///home/deuteuros/Documents/10%20Projets/IEL%20-%20Expense%20tracker/flutter_project/docs/RUN_GUIDE.md) pour pérenniser les commandes de compilation spécifiques à l'environnement.
 
+## 📅 [2026-05-08] - Refonte Tantara & Fonction de Recherche
+### 🛠 Interface Utilisateur (UX)
+- **Sélecteur de Mois Horizontal :** Implémentation d'une barre défilante en haut de l'historique pour une navigation rapide entre les mois.
+- **Barre de Résumé Contextuelle :** Affichage en temps réel des Entrées, Sorties et du Solde Net pour le mois sélectionné.
+- **Groupement Quotidien :** Les transactions sont désormais regroupées par jour avec des en-têtes incluant le solde net de la journée.
+- **Localisation Malgache :** Correction des noms de jours (ex: Alakamisy) et mois dans toute la vue historique.
+
+### 🔍 Nouvelles Fonctionnalités
+- **Recherche Avancée :** Intégration d'une barre de recherche dans l'AppBar permettant de filtrer instantanément par nom d'item ou par date précise (YYYY-MM-DD).
+
 ## 📅 [2026-05-08] - Renommage "CaisseCash" & Archivage Python
 ### 🏷 Identité de Marque
 - **Nouveau Nom :** Application officiellement renommée **CaisseCash** (Jeu de mots avec "C'est cash" / Cash + Caisse).

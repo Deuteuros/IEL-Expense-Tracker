@@ -14,6 +14,15 @@
 - [x] Tester l'application sur différents smartphone
 - [x] Assurer que les textes dans l'onglet Ampidiro suivent aussi la largeur et la longueur du smartphone.
 - [-] Faire que le logo soit le logo de l'application mobile dans le build
+- [x] **Refonte Vue Tantara (Flutter) :**
+    - [x] Ajouter un sélecteur de mois horizontal (défilant) en haut de la vue.
+    - [x] Implémenter la barre de résumé (Entrée, Sortie, Solde) sous le sélecteur.
+    - [x] Groupement des transactions par jour avec sous-totaux quotidiens.
+- [x] **Fonction de Recherche :** Implémenter la recherche par nom et par date dans l'historique.
+- [ ] **Saisie Intelligente (Smart Entry) :**
+    - Autocomplétion du nom de l'item à partir des données existantes.
+    - Chargement automatique de l'unité associée une fois l'item choisi.
+    - Autocomplétion du destinataire / fournisseur (mpandray / mpamatsy).
 
 # Retour Beta-test
 - [x] Correction de l'erreur `ModuleNotFoundError: No module named 'pandas'` lors du lancement de l'application sur Android. (Cause: `requirements.txt` manquant dans le dossier `src/`)

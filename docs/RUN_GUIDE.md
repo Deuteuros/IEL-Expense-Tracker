@@ -1,43 +1,35 @@
-# Guide de Lancement - Expense Tracker (Flutter)
+# Guide de Lancement - CaisseCash (Flutter)
 
-Ce guide contient les commandes pour compiler et lancer l'application sur différentes plateformes.
+Ce guide contient les commandes pour compiler et lancer l'application.
 
 ## 1. Prérequis (Linux)
-Pour compiler la version Desktop sur Linux, assure-toi d'avoir installé les dépendances système :
+Lance ces commandes directement à la racine du projet :
 ```bash
 sudo apt-get update
-sudo apt-get install -y build-essential clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev
+sudo apt-get install -y build-essential clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev lld-18 libstdc++-13-dev
 ```
 
-### Dépannage : Erreur "Release file is missing" (APT)
-Si `sudo apt-get update` échoue à cause d'un dépôt opensuse obsolète, il peut être dans **deux fichiers**. Lance ces commandes pour les supprimer :
+### Dépannage : Erreur headers C++
+Si tu as l'erreur `type_traits file not found`, lance ces exports :
 ```bash
-sudo rm "/etc/apt/sources.list.d/home:selmf.list.distUpgrade"
-sudo rm "/etc/apt/sources.list.d/home:selmf.sources"
-```
-Puis relance `sudo apt-get update` : il ne devrait plus y avoir d'erreur `404`.
-
-### Dépannage : Erreur `-lstdc++` (clang++ ne trouve pas la bibliothèque C++)
-```bash
-sudo apt-get install --reinstall build-essential g++ libstdc++-12-dev
+export C_INCLUDE_PATH=/usr/include/c++/13:/usr/include/x86_64-linux-gnu/c++/13:$C_INCLUDE_PATH
+export CPLUS_INCLUDE_PATH=/usr/include/c++/13:/usr/include/x86_64-linux-gnu/c++/13:$CPLUS_INCLUDE_PATH
 ```
 
 ## 2. Configurer le chemin Flutter
-Si Flutter n'est pas dans ton PATH global :
 ```bash
 export PATH="$PATH:/home/deuteuros/flutter/3.38.6/bin"
 ```
 
 ## 3. Lancer l'application
-
-### Version Linux Desktop (Recommandé pour le test)
 ```bash
+flutter pub get
 flutter run -d linux
 ```
 
 ### Version Web (Chrome)
 ```bash
-flutter run -d chrome
+{{ ... }}
 ```
 
 ### Version Android (nécessite un émulateur ou un téléphone branché)

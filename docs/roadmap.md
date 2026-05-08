@@ -1,39 +1,45 @@
-# 🗺️ Roadmap : CaisseCash (IEL)
+# 🗺️ Roadmap & Backlog : CaisseCash (IEL)
 
 > Dernière mise à jour : 2026-05-08
 
-Cette roadmap définit l'évolution de **CaisseCash**, l'application de gestion de flux financiers de l'ISS Economics Lab (IEL), migrée avec succès de Python/Flet vers Flutter/Dart.
+Ce document est l'unique point de référence pour la vision stratégique et le suivi des tâches techniques de **CaisseCash**.
 
 ---
 
-## ✅ Étape 1 : Migration Flutter & Fondations (Terminé)
-- **Migration complète** : Passage de Python/Flet à Dart/Flutter pour de meilleures performances mobiles.
-- **Data Schema** : Standardisation de la base SQLite et support natif via `sqflite`.
-- **Identité** : Adoption du nom **CaisseCash** et refonte visuelle Material 3.
-- **Compilation Linux** : Stabilisation de l'environnement de build Desktop.
+## 🏁 État Actuel : MVP Stable
+L'application a été migrée avec succès vers Flutter. Les fonctions de consultation, d'import et de recherche sont opérationnelles sur Linux Desktop.
+
+---
+
+## ✅ Étape 1 : Migration & Fondations (Terminé)
+- **Migration complète** : Passage de Python/Flet à Dart/Flutter.
+- **Data Schema** : Support natif via `sqflite`.
+- **Identité** : Nom **CaisseCash** et design Material 3.
+- **Compilation Linux** : Environnement de build stabilisé.
 
 ---
 
 ## ✅ Étape 2 : MVP & UX Tantara (Terminé)
-- **Vue Tantara v2** :
-    - **Sélecteur de Mois Horizontal** : Navigation fluide par défilement.
-    - **Barre de Résumé Mensuel** : Aperçu immédiat Entrées / Sorties / Solde Net.
-    - **Groupement Quotidien** : Organisation par jour avec sous-totaux.
-- **Audit & Import** : 
-    - **Import CSV Robuste** : Gestion automatique des séparateurs, du BOM et mapping dynamique des portefeuilles.
-- **Recherche** : Filtrage par nom d'item et par date précise.
+- **Vue Tantara v2** : Sélecteur horizontal, barre de résumé, groupement par jour.
+- **Audit & Import** : Import CSV robuste et mapping dynamique.
+- **Recherche** : Filtrage par texte et par date précise.
+- **Localisation** : Malagasy intégral (Janoary, Alakamisy, etc.).
 
 ---
 
-## 🔄 Étape 3 : Saisie Intelligente & Optimisations (En Cours)
-- ⬜ **Smart Entry (Saisie Intelligente)** : 
+## 🔄 Étape 3 : Saisie Intelligente & Déploiement (En Cours)
+
+### 📋 Liste des Tâches (Backlog)
+- [ ] **Smart Entry (Saisie Intelligente)** : 
     - Autocomplétion dynamique des items.
     - Chargement auto de l'unité.
     - Autocomplétion des fournisseurs/clients.
-- ⬜ **Logo & Build Mobile** : Finalisation de l'intégration du logo et génération d'APK pour Android.
-- ✅ **Localisation Malagasy** : Intégration des jours (Alakamisy, etc.) et mois en malgache.
+- [ ] **Build Android** : Génération de l'APK final via Flutter.
+- [ ] **Icône d'Application** : S'assurer que le logo est correctement intégré au build mobile.
+- [ ] **Tests Mobiles** : Valider la réactivité de l'onglet "Ampidiro" sur différents écrans.
+- [ ] **Export de Backup** : Sauvegarde externe des données SQLite.
 
 ---
 
 > [!NOTE]
-> **Consigne Technique** : Se référer au `docs/migration.md` pour l'historique de transition et au `docs/RUN_GUIDE.md` pour les commandes de build.
+> **Directive Technique** : Pour toute nouvelle fonctionnalité, mettre à jour ce document avant de commencer le développement.

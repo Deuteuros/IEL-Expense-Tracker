@@ -2,7 +2,11 @@ import flet as ft
 import database
 from datetime import datetime
 
-# Fallback for month names
+
+def fmt(val):
+    return f"{val:,.0f}".replace(",", " ")
+
+
 MONTHS_MG = {
     1: "Janoary", 2: "Febroary", 3: "Martsa", 4: "Aprily",
     5: "Mey", 6: "Jona", 7: "Jolay", 8: "Aogositra",
@@ -116,13 +120,13 @@ class HistoryView(ft.Column):
             content=ft.Row([
                 ft.Row([
                     ft.Icon(ft.Icons.ARROW_DROP_DOWN, color=ft.Colors.RED_400, size=20),
-                    ft.Text(f"{total_expense:,.0f} Ar", color=ft.Colors.RED_700, size=13, weight="bold"),
+                    ft.Text(f"{fmt(total_expense)} Ar", color=ft.Colors.RED_700, size=13, weight="bold"),
                 ], spacing=2),
                 ft.Row([
                     ft.Icon(ft.Icons.ARROW_DROP_UP, color=ft.Colors.GREEN_400, size=20),
-                    ft.Text(f"{total_income:,.0f} Ar", color=ft.Colors.GREEN_700, size=13, weight="bold"),
+                    ft.Text(f"{fmt(total_income)} Ar", color=ft.Colors.GREEN_700, size=13, weight="bold"),
                 ], spacing=2),
-                ft.Text(f"= {total_net:,.0f} Ar", color=ft.Colors.BLACK, size=13, weight="bold"),
+                ft.Text(f"= {fmt(total_net)} Ar", color=ft.Colors.BLACK, size=13, weight="bold"),
             ], alignment=ft.MainAxisAlignment.CENTER, spacing=15),
             bgcolor="#E1F0F7",
             padding=8,
@@ -154,7 +158,7 @@ class HistoryView(ft.Column):
                     ft.Container(
                         content=ft.Row([
                             ft.Text(day_label, color=ft.Colors.GREY_500, size=txt_day),
-                            ft.Text(f"{day_net:,.0f} Ar", color=ft.Colors.GREY_600, size=txt_day),
+                            ft.Text(f"{fmt(day_net)} Ar", color=ft.Colors.GREY_600, size=txt_day),
                         ], alignment=ft.MainAxisAlignment.SPACE_BETWEEN),
                         padding=ft.padding.only(left=h_pad, right=h_pad, top=15, bottom=5)
                     )
@@ -211,7 +215,7 @@ class HistoryView(ft.Column):
                     ], spacing=2)
                 ], spacing=12),
                 ft.Text(
-                    f"{'- ' if not is_income else '+ '}{row['montant_total_mga']:,.0f} Ar",
+                    f"{'- ' if not is_income else '+ '}{fmt(row['montant_total_mga'])} Ar",
                     color=ft.Colors.RED_500 if not is_income else ft.Colors.GREEN_600,
                     weight="bold",
                     size=txt_amount

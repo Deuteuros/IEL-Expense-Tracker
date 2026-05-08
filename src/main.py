@@ -6,6 +6,10 @@ from views.history import get_history_view
 from views.management import get_management_view
 from components.segmented_control import CustomSegmentedControl, Segment
 
+
+def fmt(val):
+    return f"{val:,.0f}".replace(",", " ")
+
 async def main(page: ft.Page):
     page.title = "Cashew Expense Tracker"
     page.theme_mode = ft.ThemeMode.LIGHT
@@ -128,7 +132,7 @@ async def main(page: ft.Page):
                 qty = float(qty_field.value) if qty_field.value else 0
                 price = float(price_field.value) if price_field.value else 0
                 total = qty * price
-                total_field.value = f"{total:,.0f}"
+                total_field.value = fmt(total)
                 page.update()
             except ValueError:
                 total_field.value = "Erreur"
@@ -169,7 +173,7 @@ async def main(page: ft.Page):
                 
                 # Feedback
                 page.snack_bar = ft.SnackBar(
-                    content=ft.Text(f"Voatahiry: {item_field.value} (Ar {t_val:,.0f})"),
+                    content=ft.Text(f"Voatahiry: {item_field.value} (Ar {fmt(t_val)})"),
                     bgcolor=ft.Colors.GREEN_700
                 )
                 page.snack_bar.open = True
@@ -246,8 +250,8 @@ async def main(page: ft.Page):
 if __name__ == "__main__":
     import sys
     if "--web" in sys.argv:
-        ft.app(target=main, view=ft.AppView.WEB_BROWSER, assets_dir="assets")
+        ft.run(main, view=ft.AppView.WEB_BROWSER, assets_dir="assets")
     else:
-        ft.app(target=main, assets_dir="assets")
+        ft.run(main, assets_dir="assets")
 
 

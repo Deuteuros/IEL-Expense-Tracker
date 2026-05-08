@@ -12,6 +12,8 @@
 - [x] Pour le build, utiliser le paramètre `--product` pour changer le nom : `flet build apk src --product "Cashew" --org "mg.iel.cashew"`
 - [x] Générer un logo et l'intégrer dans l'application
 - [x] Tester l'application sur différents smartphone
+- [x] Assurer que les textes dans l'onglet Ampidiro suivent aussi la largeur et la longueur du smartphone.
+- [-] Faire que le logo soit le logo de l'application mobile dans le build
 
 # Retour Beta-test
 - [x] Correction de l'erreur `ModuleNotFoundError: No module named 'pandas'` lors du lancement de l'application sur Android. (Cause: `requirements.txt` manquant dans le dossier `src/`)

@@ -32,3 +32,16 @@
 - **CLI Argument :** Remplacement de l'argument déprécié `--project-name` par `--project` dans la commande de build.
 - **Dependency Conflict :** Suppression de `kaleido` et `plotly` du fichier `src/requirements.txt` pour corriger les conflits de résolution `pip` lors du ciblage mobile.
 - **APK Généré :** L'application a été compilée avec succès pour Android.
+
+## 📅 [2026-04-25] - Seeding & Migration Flet 0.80+
+### 💾 Gestion des Données
+- **Database Seeding :** Génération automatique de 30 jours de transactions aléatoires (`scratch/seed_data.py`) pour tester les vues graphiques.
+
+### 🐛 Débogage & Migration
+- **Flet 0.80+ Migration :**
+    - Remplacement de `ft.app()` par `ft.run()` (dépréciation).
+    - Migration des graphiques vers le package séparé `flet-charts` (`fc.LineChart`, `fc.PieChart`, etc.).
+    - Mise à jour des signatures de constructeurs (`data_points` -> `points`, `stroke_cap_round` -> `rounded_stroke_cap`).
+    - Correction des constantes d'alignement (`ft.alignment.top_center` -> `ft.Alignment.TOP_CENTER`).
+    - Correction des paramètres d'axe (`labels_size` -> `label_size`).
+

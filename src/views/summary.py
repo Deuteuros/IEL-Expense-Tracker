@@ -1,6 +1,117 @@
 import flet as ft
+import flet_charts as fc
 import database
-from datetime import datetime
+import datetime as dt
+
+
+def fmt(val):
+    return f"{val:,.0f}".replace(",", " ")
+
+
+def make_line_chart(evolution):
+    if not evolution:
+        return fc.LineChart(expand=True)
+
+    dates = [d for d, v in evolution]
+    values = [v for d, v in evolution]
+
+    min_val = min(values)
+    max_val = max(values)
+    range_span = max_val - min_val
+    padding = range_span * 0.1 if range_span > 0 else 1000
+    min_y = min(min_val * 0.9, 0) - padding
+    max_y = max(max_val * 1.1, 0) + padding
+
+    balance_final = values[-1]
+    line_color = ft.Colors.RED_700 if balance_final < 0 else ft.Colors.GREEN_700
+
+    first_date = dt.datetime.fromisoformat(dates[0]).strftime("%d %b")
+    last_date = dt.datetime.fromisoformat(dates[-1]).strftime("%d %b")
+
+    return fc.LineChart(
+        data_series=[
+            fc.LineChartData(
+                points=[
+                    fc.LineChartDataPoint(
+                        x=i,
+                        y=val,
+                        tooltip=f"{dates[i]}: Ar {fmt(val)}",
+                    )
+                    for i, (date, val) in enumerate(evolution)
+                ],
+                stroke_width=3,
+                color=line_color,
+                curved=True,
+                rounded_stroke_cap=True,
+                below_line_bgcolor=ft.Colors.with_opacity(0.1, line_color),
+                below_line_gradient=ft.LinearGradient(
+                    begin=ft.Alignment.TOP_CENTER,
+                    end=ft.Alignment.BOTTOM_CENTER,
+                    colors=[
+                        ft.Colors.with_opacity(0.3, line_color),
+                        ft.Colors.with_opacity(0, line_color),
+                    ],
+                ),
+            )
+        ],
+        interactive=True,
+        tooltip=fc.LineChartTooltip(
+            max_width=200,
+            padding=10,
+        ),
+        left_axis=fc.ChartAxis(
+            labels=[
+                fc.ChartAxisLabel(
+                    value=0,
+                    label=ft.Container(
+                        content=ft.Text(
+                            "0 Ar",
+                            size=11,
+                            color=ft.Colors.OUTLINE_VARIANT,
+                        ),
+                        padding=ft.Padding(0, 0, 0, 0),
+                    ),
+                )
+            ],
+            show_labels=True,
+            label_size=40,
+        ),
+        horizontal_grid_lines=fc.ChartGridLines(
+            interval=abs(min_y - max_y) / 10,
+            color=ft.Colors.with_opacity(0.1, ft.Colors.OUTLINE_VARIANT),
+        ),
+        bottom_axis=fc.ChartAxis(
+            labels=[
+                fc.ChartAxisLabel(
+                    value=0,
+                    label=ft.Container(
+                        content=ft.Text(
+                            first_date,
+                            size=11,
+                            color=ft.Colors.OUTLINE_VARIANT,
+                        ),
+                        padding=ft.Padding(8, 0, 0, 0),
+                    ),
+                ),
+                fc.ChartAxisLabel(
+                    value=len(evolution) - 1,
+                    label=ft.Container(
+                        content=ft.Text(
+                            last_date,
+                            size=11,
+                            color=ft.Colors.OUTLINE_VARIANT,
+                        ),
+                        padding=ft.Padding(8, 0, 0, 0),
+                    ),
+                ),
+            ],
+            show_labels=True,
+            label_size=40,
+        ),
+        expand=True,
+        min_y=min_y,
+        max_y=max_y,
+    )
 
 def get_summary_view(page: ft.Page):
     # Responsive helper: base width
@@ -16,7 +127,7 @@ def get_summary_view(page: ft.Page):
         return ft.Container(
             content=ft.Column([
                 ft.Row([ft.Icon(icon, color=color, size=20), ft.Text(title, size=14, color=ft.Colors.GREY_700)]),
-                ft.Text(f"Ar {value:,.0f}", size=16 if w < 380 else 18, weight="bold"),
+                ft.Text(f"Ar {fmt(value)}", size=16 if w < 380 else 18, weight="bold"),
             ], spacing=5),
             padding=15,
             border_radius=15,
@@ -25,34 +136,13 @@ def get_summary_view(page: ft.Page):
         )
 
     # --- Component: Line Chart (Evolution) ---
-    line_chart = ft.LineChart(
-        data_series=[
-            ft.LineChartData(
-                data_points=[ft.LineChartDataPoint(i, val) for i, (date, val) in enumerate(evolution)],
-                stroke_width=3,
-                color=ft.Colors.GREEN_700,
-                curved=True,
-                stroke_cap_round=True,
-                below_line_bgcolor=ft.Colors.with_opacity(0.1, ft.Colors.GREEN),
-                below_line_gradient=ft.LinearGradient(
-                    begin=ft.alignment.top_center,
-                    end=ft.alignment.bottom_center,
-                    colors=[ft.Colors.with_opacity(0.3, ft.Colors.GREEN), ft.Colors.with_opacity(0, ft.Colors.GREEN)],
-                ),
-            )
-        ],
-        border=ft.ChartBorder(bottom=ft.BorderSide(1, "outlinevariant")),
-        left_axis=ft.ChartAxis(labels_size=0),
-        bottom_axis=ft.ChartAxis(labels_size=0),
-        expand=True,
-        min_y=0 if not evolution else min(v for d, v in evolution) * 0.9,
-    ) if evolution else ft.Text("Tsy misy angona mbola azo asiana kisary.", color=ft.Colors.GREY_500)
+    line_chart = make_line_chart(evolution)
 
     # --- Component: Pie Chart (Distribution) ---
     total_vol = sum(abs(val) for cat, val in cat_distribution)
-    pie_chart = ft.PieChart(
+    pie_chart = fc.PieChart(
         sections=[
-            ft.PieChartSection(
+            fc.PieChartSection(
                 abs(val),
                 title=f"{cat}\n{abs(val)/total_vol*100:.0f}%" if total_vol > 0 else cat,
                 color=ft.Colors.GREEN_700 if cat in ['Miditra', 'Vente'] else ft.Colors.RED_700,
@@ -78,7 +168,7 @@ def get_summary_view(page: ft.Page):
             ft.Container(
                 content=ft.Column([
                     ft.Text("Vola Tavela (Solde Total)", size=14, color=ft.Colors.GREY_700),
-                    ft.Text(f"Ar {total_balance:,.0f}", size=22 if w < 380 else 28, weight="bold", 
+                    ft.Text(f"Ar {fmt(total_balance)}", size=22 if w < 380 else 28, weight="bold", 
                            color=ft.Colors.GREEN_800 if total_balance >= 0 else ft.Colors.RED_800),
                 ], horizontal_alignment=ft.CrossAxisAlignment.CENTER),
                 padding=15,
@@ -93,7 +183,7 @@ def get_summary_view(page: ft.Page):
             ft.Container(
                 content=ft.Column([
                     ft.Text("Tao anatin'ny 30 andro", size=14, color=ft.Colors.GREY_700),
-                    ft.Text(f"Ar {balance:,.0f}", size=26 if w < 380 else 32, weight="bold", 
+                    ft.Text(f"Ar {fmt(balance)}", size=26 if w < 380 else 32, weight="bold", 
                            color=ft.Colors.GREEN_700 if balance >= 0 else ft.Colors.RED_700),
                 ], horizontal_alignment=ft.CrossAxisAlignment.CENTER),
                 padding=10,

@@ -1,28 +1,25 @@
-# Blueprint : IEL - Expense Tracker
+# Blueprint : CaisseCash (IEL)
 
 ## Overview
-Recréation modulaire de l'application Cashew pour l'écosystème IEL.
-- **Goal** : Transformer la saisie de dépenses en intelligence économique.
-- **Constraint** : Offline-first, interface mobile-first intuitive.
+Application modulaire de gestion de flux financiers pour l'écosystème ISS Economics Lab (IEL).
+- **Objectif** : Transformer la saisie brute en intelligence économique actionnable.
+- **Contraintes** : Offline-first, interface mobile-first intuitive, performance native.
 
 ## Stack Technique
-- **Framework** : Flet (Python)
-- **Data** : CSV Local (transition vers Supabase planifiée)
-- **UI** : Material 3 "Golden Green"
+- **Framework** : Flutter (Dart)
+- **State Management** : Riverpod (Gestion réactive et découplage)
+- **Data** : SQLite (via `sqflite` et `sqflite_common_ffi` pour le Desktop)
+- **UI** : Material 3 "Outfit Design" (typographie Outfit, couleurs harmonieuses)
 
-## Data Schema (Standard)
-| Champ | Description |
-|-------|-------------|
-| date | Date de l'opération |
-| categorie | Type de flux (Achat/Vente) |
-| item | Désignation |
-| quantite | Volume |
-| unite | Unité de mesure |
-| prix_unitaire | Prix par unité |
-| montant_total | Calcul auto (Qté * PU) |
-| tiers | Fournisseur ou Client |
+## Architecture du Projet
+- `lib/models/` : Définition des structures de données (Transactions, Portefeuilles).
+- `lib/services/` : Logique d'accès aux données (DatabaseHelper, Import/Export).
+- `lib/providers/` : Couche de gestion d'état et logique métier asynchrone.
+- `lib/views/` : Composants d'interface (Témoin, Tantara, Fikirakirana).
+- `lib/widgets/` : Composants UI réutilisables (Graphiques, Dialogues).
 
-## Directives d'Implémentation
-1. **Modularité** : Chaque vue doit être un composant indépendant dans \`views/\`.
-2. **I18n** : Priorité au Malagasy, utiliser des clés de traduction.
-3. **UX** : Design "WhatsApp-like" pour l'historique (Tantara).
+## Principes Directeurs
+1. **Performance Native** : Utilisation de Flutter pour une fluidité maximale sur Android et Desktop.
+2. **Localisation Malagasy** : Interface pensée en Malagasy par défaut.
+3. **UX Intuitive** : Historique "WhatsApp-like" groupé par jour pour une lecture naturelle.
+4. **Data Integrity** : Import CSV robuste avec validation des schémas.

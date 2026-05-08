@@ -1,49 +1,46 @@
-# Architecture de la Base de Données (Hybride SQLite/CSV)
+# Architecture de la Base de Données (CaisseCash)
 
-Ce document détaille la structure interne de persistance pour l'application Cashew.
+Ce document détaille la structure de persistance pour l'application Flutter **CaisseCash**.
 
 ## 🏗️ Modèle de Données (SQLite)
 
-La base `cashew.db` contient trois tables principales pour assurer la rapidité des calculs et la gestion multi-portefeuille (Wallet).
+L'application utilise SQLite via le package `sqflite` (Android) et `sqflite_common_ffi` (Linux/Desktop).
 
 ### Table : `wallets`
 | Colonne | Type | Description |
 |---------|------|-------------|
 | `id` | INTEGER (PK) | Identifiant unique. |
-| `name` | TEXT | Nom du compte (ex: "Caisse", "Mobile Money"). |
-| `type` | TEXT | Type de compte. |
-| `balance` | REAL | Solde actuel (calculé ou stocké). |
+| `name` | TEXT | Nom du compte (ex: "Caisse", "Banque"). |
+| `balance` | REAL | Solde actuel stocké. |
 
 ### Table : `transactions`
 | Colonne | Type | Description |
 |---------|------|-------------|
 | `id` | INTEGER (PK) | Identifiant unique. |
-| `date` | TEXT | Date au format ISO8601 (`YYYY-MM-DD`). |
-| `categorie_flux` | TEXT | Achat, Vente, Perte, Correction. |
+| `date` | TEXT | Date au format `YYYY-MM-DD`. |
+| `categorie_flux` | TEXT | Type : 'Miditra' (Revenu), 'Fandaniana' (Dépense), 'Vente', 'Achat'. |
 | `item` | TEXT | Désignation du produit/service. |
 | `quantite` | REAL | Volume. |
 | `unite` | TEXT | Unité de mesure (kg, l, u). |
 | `prix_unitaire` | REAL | Prix unitaire. |
-| `montant_total` | REAL | Valeur totale transaction. |
-| `tiers` | TEXT | Client ou Fournisseur. |
-| `wallet_id` | INTEGER | FK vers `wallets.id`. |
+| `montant_total_mga` | REAL | Montant total en Ariary. |
+| `fournisseur_client` | TEXT | Nom du tiers. |
+| `portefeuille_id` | INTEGER | FK vers `wallets.id`. |
 
-## 🔄 Mécanisme de Synchronisation
+## 🔄 Mécanismes Clés
 
-1. **Import CSV** :
-   - Lecture du fichier `expense.csv` via Pandas.
-   - Nettoyage des données (doublons, formats de date).
-   - Insertion massive dans SQLite (TRUNCATE then INSERT ou Upsert).
+1. **Initialisation Desktop** : 
+   - Sur Linux, le moteur SQLite est initialisé manuellement via `sqfliteFfiInit()` dans `main.dart`.
+   - La base de données est stockée dans le répertoire local de l'application.
 
-2. **Écriture (Ajout Manuel)** :
-   - Insertion immédiate dans SQLite.
-   - Append asynchrone ou immédiat dans le fichier `expense.csv` pour garantir la persistance "portable".
+2. **Import CSV** :
+   - Lecture via le package `csv`.
+   - Détection automatique du BOM UTF-8 et des séparateurs (`,` ou `;`).
+   - Mapping dynamique des portefeuilles par nom pour garantir l'intégrité entre le CSV et la DB locale.
 
-3. **Calculs (Analyses)** :
-   - Toutes les fonctions `get_summary()`, `get_charts()` interrogent SQLite.
-   - Utilisation de `strftime` SQL pour extraire les mois présents et filtrer les données.
+3. **Calculs & Performance** :
+   - Les totaux mensuels et les données de graphiques sont calculés via des requêtes SQL brutes (`SUM`, `GROUP BY`) pour une performance optimale même avec des milliers de transactions.
 
-## 🛠️ Avantages
-- **Performance** : Les graphiques (Pie, Line) sont calculés en SQL, beaucoup plus rapide que de parcourir un CSV.
-- **Robustesse** : Moins de risques de corruption de fichier lors d'écritures concurrentes.
-- **Mobilité** : SQLite est le standard mobile, facilitant une future compilation APK.
+## 🛠️ Avantages de la Stack Flutter
+- **Portabilité native** : Le même code SQL fonctionne sur Linux et Android.
+- **Réactivité** : L'utilisation de `riverpod` permet de rafraîchir l'interface dès qu'une modification est faite en base de données.

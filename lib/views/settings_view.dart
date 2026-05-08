@@ -68,6 +68,8 @@ class SettingsView extends ConsumerWidget {
         ref.invalidate(transactionsProvider);
         ref.invalidate(summaryProvider);
         ref.invalidate(monthsProvider);
+        ref.invalidate(evolutionProvider);
+        ref.invalidate(distributionProvider);
         
         if (context.mounted) {
           ScaffoldMessenger.of(context).showSnackBar(

@@ -16,6 +16,8 @@
 ### 💾 Fonctionnalités Clés
 - **Historique (Tantara) :** Support du mode sélection multiple et suppression par lots.
 - **Import/Export CSV :** Restauration de la compatibilité avec le format de données original.
+    - **Robustesse :** Ajout de la gestion du BOM UTF-8, détection automatique du séparateur (`,` ou `;`) et normalisation des fins de ligne (`\n`).
+    - **Mapping Dynamique :** Les portefeuilles sont désormais mappés par nom au lieu d'ID statiques.
 - **Documentation :** Création du [RUN_GUIDE.md](file:///home/deuteuros/Documents/10%20Projets/IEL%20-%20Expense%20tracker/flutter_project/docs/RUN_GUIDE.md) pour pérenniser les commandes de compilation spécifiques à l'environnement.
 
 ## 📅 [2026-05-08] - Renommage "CaisseCash" & Archivage Python

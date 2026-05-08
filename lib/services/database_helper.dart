@@ -1,7 +1,9 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'package:csv/csv.dart';
-import 'dart:io';
 import '../models/transaction.dart';
 import '../models/wallet.dart';
 
@@ -157,38 +159,99 @@ class DatabaseHelper {
 
   Future<int> importFromCsv(String path) async {
     final file = File(path);
-    final csvString = await file.readAsString();
-    List<List<dynamic>> rowsAsListOfValues = CsvToListConverter().convert(csvString);
+    final bytes = await file.readAsBytes();
+    String csvString = utf8.decode(bytes);
+    
+    // Remove BOM if present
+    if (csvString.startsWith('\uFEFF')) {
+      csvString = csvString.substring(1);
+    }
+
+    // Try to detect the separator (comma or semicolon)
+    String separator = ',';
+    final firstLine = csvString.split('\n').first;
+    
+    if (firstLine.contains(';') && !firstLine.contains(',')) {
+      separator = ';';
+    }
+
+    // Normalize line endings to \n
+    csvString = csvString.replaceAll('\r\n', '\n').replaceAll('\r', '\n');
+
+    List<List<dynamic>> rowsAsListOfValues = CsvToListConverter(
+      fieldDelimiter: separator,
+      eol: '\n',
+      shouldParseNumbers: true,
+      allowInvalid: true,
+    ).convert(csvString);
 
     if (rowsAsListOfValues.isEmpty) return 0;
 
     final db = await instance.database;
-    final List<dynamic> header = rowsAsListOfValues.first;
+    
+    // Process headers: trim them and convert to lowercase for comparison
+    final rawHeader = rowsAsListOfValues.first;
+    final List<String> header = rawHeader.map((h) => h.toString().trim().toLowerCase()).toList();
+    
     int importedCount = 0;
+
+    // Get wallets to map names to IDs
+    final List<Map<String, dynamic>> wallets = await db.query('wallets');
+    final Map<String, int> walletMap = {
+      for (var w in wallets) w['name'].toString().toLowerCase(): w['id'] as int
+    };
 
     await db.transaction((txn) async {
       for (int i = 1; i < rowsAsListOfValues.length; i++) {
         final row = rowsAsListOfValues[i];
+        if (row.length < header.length) continue; // Skip incomplete rows
+
         Map<String, dynamic> data = {};
         for (int j = 0; j < header.length; j++) {
-          String key = header[j].toString();
+          String key = header[j];
           var value = row[j];
           
           if (key == 'id') continue;
           
-          // Mapping from old Python CSV names to SQLite names
+          // Mapping from CSV names to SQLite column names
           if (key == 'portefeuille') {
+            final walletName = value.toString().trim().toLowerCase();
             key = 'portefeuille_id';
-            value = 1; // Default to 'Caisse' ID
+            value = walletMap[walletName] ?? (walletMap.isNotEmpty ? walletMap.values.first : 1);
+          }
+          
+          // Handle specific column names if they differ
+          if (key == 'category_flux') key = 'categorie_flux';
+          if (key == 'quantity') key = 'quantite';
+          if (key == 'unit') key = 'unite';
+          if (key == 'unit_price') key = 'prix_unitaire';
+          if (key == 'total_amount_mga') key = 'montant_total_mga';
+          if (key == 'provider_client') key = 'fournisseur_client';
+
+          // Clean up values
+          if (value is String) {
+            value = value.trim();
+            if (value.isEmpty) value = null;
+          }
+          
+          // Ensure numeric values are actually numbers
+          if (['quantite', 'prix_unitaire', 'montant_total_mga'].contains(key)) {
+            if (value is String) {
+              value = double.tryParse(value.replaceAll(',', '.'));
+            }
           }
           
           data[key] = value;
         }
         
-        // Final sanity check: ensure totalAmountMga is not null
-        if (data['montant_total_mga'] != null) {
-          await txn.insert('transactions', data);
-          importedCount++;
+        // Final sanity check: ensure montant_total_mga is present and valid
+        if (data['montant_total_mga'] != null && data['date'] != null) {
+          try {
+            await txn.insert('transactions', data);
+            importedCount++;
+          } catch (_) {
+            // Silently skip duplicates or errors in final version
+          }
         }
       }
     });

@@ -21,3 +21,11 @@ final evolutionProvider = FutureProvider<List<Map<String, dynamic>>>((ref) async
 final distributionProvider = FutureProvider<List<Map<String, dynamic>>>((ref) async {
   return await DatabaseHelper.instance.getDistributionData(30);
 });
+
+final uniqueItemsProvider = FutureProvider<List<String>>((ref) async {
+  return await DatabaseHelper.instance.getDistinctItems();
+});
+
+final uniqueClientsProvider = FutureProvider<List<String>>((ref) async {
+  return await DatabaseHelper.instance.getDistinctClients();
+});

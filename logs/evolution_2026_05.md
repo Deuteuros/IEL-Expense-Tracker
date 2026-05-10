@@ -22,7 +22,7 @@
 
 ## 📅 [2026-05-08] - Refonte Tantara & Fonction de Recherche
 ### 🛠 Interface Utilisateur (UX)
-- **Sélecteur de Mois Horizontal :** Implémentation d'une barre défilante en haut de l'historique pour une navigation rapide entre les mois.
+- **Sélecteur de Mois Horizontal :** Implémentation d'une barre défilante en haut de l'historique pour une navigation rapide entre les mois.https://betterexplained.com/
 - **Barre de Résumé Contextuelle :** Affichage en temps réel des Entrées, Sorties et du Solde Net pour le mois sélectionné.
 - **Groupement Quotidien :** Les transactions sont désormais regroupées par jour avec des en-têtes incluant le solde net de la journée.
 - **Localisation Malgache :** Correction des noms de jours (ex: Alakamisy) et mois dans toute la vue historique.

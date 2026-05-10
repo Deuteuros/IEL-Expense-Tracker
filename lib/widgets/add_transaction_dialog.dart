@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/transaction.dart';
 import '../services/database_helper.dart';
+import '../providers/transaction_provider.dart';
 
-class AddTransactionDialog extends StatefulWidget {
+class AddTransactionDialog extends ConsumerStatefulWidget {
   final VoidCallback onSaved;
 
   const AddTransactionDialog({super.key, required this.onSaved});
 
   @override
-  State<AddTransactionDialog> createState() => _AddTransactionDialogState();
+  ConsumerState<AddTransactionDialog> createState() => _AddTransactionDialogState();
 }
 
-class _AddTransactionDialogState extends State<AddTransactionDialog> {
+class _AddTransactionDialogState extends ConsumerState<AddTransactionDialog> {
   final _formKey = GlobalKey<FormState>();
   
   String _categoryFlux = 'Fandaniana'; // Default
@@ -31,6 +33,16 @@ class _AddTransactionDialogState extends State<AddTransactionDialog> {
     setState(() {
       _total = qty * price;
     });
+  }
+
+  Future<void> _onItemChanged(String item) async {
+    if (item.isEmpty) return;
+    final unit = await DatabaseHelper.instance.getRecentUnitForItem(item);
+    if (unit != null && unit.isNotEmpty && mounted) {
+      setState(() {
+        _unitController.text = unit;
+      });
+    }
   }
 
   @override
@@ -93,10 +105,44 @@ class _AddTransactionDialogState extends State<AddTransactionDialog> {
                 },
               ),
               const SizedBox(height: 16),
-              TextFormField(
-                controller: _itemController,
-                decoration: const InputDecoration(labelText: 'Zavatra (Item)', border: OutlineInputBorder()),
-                validator: (value) => value == null || value.isEmpty ? 'Ilaina ity' : null,
+              // Item Autocomplete
+              ref.watch(uniqueItemsProvider).when(
+                data: (items) => Autocomplete<String>(
+                  initialValue: TextEditingValue(text: _itemController.text),
+                  optionsBuilder: (TextEditingValue textEditingValue) {
+                    if (textEditingValue.text == '') return const Iterable<String>.empty();
+                    return items.where((String option) => option.toLowerCase().contains(textEditingValue.text.toLowerCase()));
+                  },
+                  onSelected: (String selection) {
+                    _itemController.text = selection;
+                    _onItemChanged(selection);
+                  },
+                  fieldViewBuilder: (context, controller, focusNode, onFieldSubmitted) {
+                    // Sync controller
+                    if (controller.text != _itemController.text && _itemController.text.isNotEmpty && controller.text.isEmpty) {
+                       controller.text = _itemController.text;
+                    }
+                    return TextFormField(
+                      controller: controller,
+                      focusNode: focusNode,
+                      decoration: const InputDecoration(labelText: 'Zavatra (Item)', border: OutlineInputBorder()),
+                      validator: (value) => value == null || value.isEmpty ? 'Ilaina ity' : null,
+                      onChanged: (value) {
+                        _itemController.text = value;
+                      },
+                      onFieldSubmitted: (value) {
+                        onFieldSubmitted();
+                        _onItemChanged(value);
+                      },
+                    );
+                  },
+                ),
+                loading: () => const LinearProgressIndicator(),
+                error: (_, __) => TextFormField(
+                  controller: _itemController,
+                  decoration: const InputDecoration(labelText: 'Zavatra (Item)', border: OutlineInputBorder()),
+                  validator: (value) => value == null || value.isEmpty ? 'Ilaina ity' : null,
+                ),
               ),
               const SizedBox(height: 10),
               Row(
@@ -142,9 +188,36 @@ class _AddTransactionDialogState extends State<AddTransactionDialog> {
                 ),
               ),
               const SizedBox(height: 10),
-              TextFormField(
-                controller: _clientController,
-                decoration: const InputDecoration(labelText: 'Mpandray / Mpamatsy', border: OutlineInputBorder()),
+              // Client Autocomplete
+              ref.watch(uniqueClientsProvider).when(
+                data: (clients) => Autocomplete<String>(
+                  initialValue: TextEditingValue(text: _clientController.text),
+                  optionsBuilder: (TextEditingValue textEditingValue) {
+                    if (textEditingValue.text == '') return const Iterable<String>.empty();
+                    return clients.where((String option) => option.toLowerCase().contains(textEditingValue.text.toLowerCase()));
+                  },
+                  onSelected: (String selection) {
+                    _clientController.text = selection;
+                  },
+                  fieldViewBuilder: (context, controller, focusNode, onFieldSubmitted) {
+                    if (controller.text != _clientController.text && _clientController.text.isNotEmpty && controller.text.isEmpty) {
+                       controller.text = _clientController.text;
+                    }
+                    return TextFormField(
+                      controller: controller,
+                      focusNode: focusNode,
+                      decoration: const InputDecoration(labelText: 'Mpandray / Mpamatsy', border: OutlineInputBorder()),
+                      onChanged: (value) {
+                        _clientController.text = value;
+                      },
+                    );
+                  },
+                ),
+                loading: () => const SizedBox(height: 2, child: LinearProgressIndicator()),
+                error: (_, __) => TextFormField(
+                  controller: _clientController,
+                  decoration: const InputDecoration(labelText: 'Mpandray / Mpamatsy', border: OutlineInputBorder()),
+                ),
               ),
             ],
           ),

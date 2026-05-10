@@ -307,6 +307,36 @@ class DatabaseHelper {
     return result;
   }
 
+  // --- Suggestions for Smart Entry ---
+
+  Future<List<String>> getDistinctItems() async {
+    final db = await instance.database;
+    final result = await db.rawQuery(
+      "SELECT DISTINCT item FROM transactions WHERE item IS NOT NULL AND item != '' ORDER BY item ASC"
+    );
+    return result.map((row) => row['item'] as String).toList();
+  }
+
+  Future<List<String>> getDistinctClients() async {
+    final db = await instance.database;
+    final result = await db.rawQuery(
+      "SELECT DISTINCT fournisseur_client FROM transactions WHERE fournisseur_client IS NOT NULL AND fournisseur_client != '' ORDER BY fournisseur_client ASC"
+    );
+    return result.map((row) => row['fournisseur_client'] as String).toList();
+  }
+
+  Future<String?> getRecentUnitForItem(String item) async {
+    final db = await instance.database;
+    final result = await db.rawQuery(
+      "SELECT unite FROM transactions WHERE item = ? AND unite IS NOT NULL AND unite != '' ORDER BY date DESC, id DESC LIMIT 1",
+      [item]
+    );
+    if (result.isNotEmpty) {
+      return result.first['unite'] as String?;
+    }
+    return null;
+  }
+
   Future close() async {
     final db = await instance.database;
     db.close();

@@ -30,10 +30,10 @@ L'application a été migrée avec succès vers Flutter. Les fonctions de consul
 ## 🔄 Étape 3 : Saisie Intelligente & Déploiement (En Cours)
 
 ### 📋 Liste des Tâches (Backlog)
-- [ ] **Smart Entry (Saisie Intelligente)** : 
-    - Autocomplétion dynamique des items.
-    - Chargement auto de l'unité.
-    - Autocomplétion des fournisseurs/clients.
+- [x] **Smart Entry (Saisie Intelligente)** : 
+    - [x] Autocomplétion dynamique des items.
+    - [x] Chargement auto de l'unité.
+    - [x] Autocomplétion des fournisseurs/clients.
 - [ ] **Build Android** : Génération de l'APK final via Flutter.
 - [ ] **Icône d'Application** : S'assurer que le logo est correctement intégré au build mobile.
 - [ ] **Tests Mobiles** : Valider la réactivité de l'onglet "Ampidiro" sur différents écrans.

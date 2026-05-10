@@ -22,7 +22,7 @@
 
 ## 📅 [2026-05-08] - Refonte Tantara & Fonction de Recherche
 ### 🛠 Interface Utilisateur (UX)
-- **Sélecteur de Mois Horizontal :** Implémentation d'une barre défilante en haut de l'historique pour une navigation rapide entre les mois.https://betterexplained.com/
+- **Sélecteur de Mois Horizontal :** Implémentation d'une barre défilante en haut de l'historique pour une navigation rapide entre les mois.
 - **Barre de Résumé Contextuelle :** Affichage en temps réel des Entrées, Sorties et du Solde Net pour le mois sélectionné.
 - **Groupement Quotidien :** Les transactions sont désormais regroupées par jour avec des en-têtes incluant le solde net de la journée.
 - **Localisation Malgache :** Correction des noms de jours (ex: Alakamisy) et mois dans toute la vue historique.
@@ -37,3 +37,12 @@
 
 ### 📁 Organisation du Projet
 - **Archivage Python :** La version originale Python/Flet a été déplacée dans le dossier `archive/` pour marquer le passage définitif à Flutter.
+
+## 📅 [2026-05-10] - Saisie Intelligente (Smart Entry)
+### 🛠 Interface Utilisateur (UX)
+- **Autocomplétion Dynamique :** Implémentation de champs `Autocomplete` pour les items et les clients/fournisseurs, basés sur l'historique des transactions.
+- **Remplissage Automatique de l'Unité :** L'unité est désormais automatiquement chargée depuis la base de données dès qu'un item connu est sélectionné ou saisi.
+
+### 💾 Backend & État
+- **Optimisation SQLite :** Ajout de requêtes pour extraire les items et clients uniques, ainsi que la dernière unité utilisée pour un item donné.
+- **Providers de Suggestions :** Intégration de providers Riverpod dédiés pour alimenter les listes de suggestions en temps réel.

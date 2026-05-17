@@ -1,6 +1,10 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:path/path.dart' as p;
 import '../services/database_helper.dart';
 import '../providers/transaction_provider.dart';
 
@@ -87,26 +91,47 @@ class SettingsView extends ConsumerWidget {
   }
 
   Future<void> _exportCsv(BuildContext context) async {
-    String? outputFile = await FilePicker.platform.saveFile(
-      dialogTitle: 'Safidio ny toerana hitehirizana ny CSV',
-      fileName: 'caissecash_export.csv',
-      type: FileType.custom,
-      allowedExtensions: ['csv'],
-    );
-
-    if (outputFile != null) {
+    if (Platform.isAndroid || Platform.isIOS) {
       try {
-        await DatabaseHelper.instance.exportToCsv(outputFile);
-        if (context.mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Dataly voa-export tany amin\'ny: $outputFile'), backgroundColor: Colors.green),
-          );
-        }
+        final tempDir = await getTemporaryDirectory();
+        final tempPath = p.join(tempDir.path, 'caissecash_export.csv');
+        
+        await DatabaseHelper.instance.exportToCsv(tempPath);
+        
+        await Share.shareXFiles(
+          [XFile(tempPath)],
+          subject: 'Export CaisseCash CSV',
+          text: 'Ireto ny dataly avy amin\'ny CaisseCash.',
+        );
       } catch (e) {
         if (context.mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text('Fahadisoana: $e'), backgroundColor: Colors.red),
           );
+        }
+      }
+    } else {
+      String? outputFile = await FilePicker.platform.saveFile(
+        dialogTitle: 'Safidio ny toerana hitehirizana ny CSV',
+        fileName: 'caissecash_export.csv',
+        type: FileType.custom,
+        allowedExtensions: ['csv'],
+      );
+
+      if (outputFile != null) {
+        try {
+          await DatabaseHelper.instance.exportToCsv(outputFile);
+          if (context.mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('Dataly voa-export tany amin\'ny: $outputFile'), backgroundColor: Colors.green),
+            );
+          }
+        } catch (e) {
+          if (context.mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('Fahadisoana: $e'), backgroundColor: Colors.red),
+            );
+          }
         }
       }
     }

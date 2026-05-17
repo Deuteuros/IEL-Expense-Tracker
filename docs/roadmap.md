@@ -6,8 +6,8 @@ Ce document est l'unique point de référence pour la vision stratégique et le 
 
 ---
 
-## 🏁 État Actuel : MVP Stable
-L'application a été migrée avec succès vers Flutter. Les fonctions de consultation, d'import et de recherche sont opérationnelles sur Linux Desktop.
+## 🏁 État Actuel : MVP Stable & Déploiement Mobile Réussi
+L'application a été migrée avec succès vers Flutter. Les fonctions de consultation, de recherche, de saisie intelligente (Smart Entry) et d'export CSV / sauvegarde (Backup) sont entièrement opérationnelles et stabilisées sur Linux Desktop et Android Mobile (APK généré).
 
 ---
 
@@ -27,19 +27,19 @@ L'application a été migrée avec succès vers Flutter. Les fonctions de consul
 
 ---
 
-## 🔄 Étape 3 : Saisie Intelligente & Déploiement (En Cours)
+## ✅ Étape 3 : Saisie Intelligente & Déploiement (Terminé)
 
 ### 📋 Liste des Tâches (Backlog)
-- [/] **Smart Entry (Saisie Intelligente)** : 
-    - [/] Autocomplétion dynamique des items (Fails on mobile).
+- [x] **Smart Entry (Saisie Intelligente)** : 
+    - [x] Autocomplétion dynamique des items (Corrigé via un composant inline personnalisé sur mobile).
     - [x] Chargement auto de l'unité.
-    - [/] Autocomplétion des fournisseurs/clients (Fails on mobile).
+    - [x] Autocomplétion des fournisseurs/clients (Corrigé via un composant inline personnalisé sur mobile).
 - [x] **Build Android** : Génération de l'APK final via Flutter.
 - [x] **Icône d'Application** : S'assurer que le logo est correctement intégré au build mobile.
-- [/] **Tests Mobiles** : Valider la réactivité de l'onglet "Ampidiro" sur différents écrans.
-    - [ ] *Bug* : Autocomplétion (Smart Entry) ne fonctionne pas sur mobile.
-    - [ ] *Bug* : Commande d'export (Backup) en échec sur mobile.
-- [ ] **Export de Backup** : Sauvegarde externe des données SQLite.
+- [x] **Tests Mobiles** : Valider la réactivité de l'onglet "Ampidiro" sur différents écrans.
+    - [x] *Bug* : Autocomplétion (Smart Entry) ne fonctionne pas sur mobile (Résolu avec le widget inline).
+    - [x] *Bug* : Commande d'export (Backup) en échec sur mobile (Résolu via le menu de partage natif).
+- [x] **Export de Backup** : Sauvegarde externe des données SQLite (Intégré via le partage natif sur mobile et FilePicker sur Desktop).
 
 ---
 

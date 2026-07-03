@@ -1,0 +1,27 @@
+#+title: State Management (Riverpod)
+#+identifier: 20260524T140300
+#+filetags: :provider:logic:
+
+* Rôle
+L'application utilise Riverpod pour gérer l'asynchronisme entre la base de données et l'UI. Tous les providers sont des =FutureProvider=, ce qui permet de gérer nativement les états de chargement (loading) et d'erreur.
+
+* Liste des Providers
+
+** =transactionsProvider=
+Expose la liste complète des transactions triées par date décroissante.
+
+** =summaryProvider=
+Expose le résumé financier des 30 derniers jours (Revenus, Dépenses, Solde).
+
+** =evolutionProvider=
+Expose les points de données pour le graphique d'évolution du solde.
+
+** =uniqueItemsProvider= & =uniqueClientsProvider=
+Fournissent des suggestions pour l'autocomplétion lors de la saisie d'une nouvelle transaction.
+
+* Mécanisme de Synchronisation
+Bien que les providers soient en lecture seule (=FutureProvider=), ils sont rafraîchis via =ref.invalidate()= (ou =ref.refresh()=) dans l'UI après chaque modification réussie (ajout/suppression) via le =DatabaseHelper=.
+
+* Liens
+- Parent: [[denote:20260524T140000][Architecture Overview]]
+- Service: [[denote:20260524T140200][Persistence (DatabaseHelper)]]

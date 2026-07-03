@@ -1,0 +1,31 @@
+#+title: Technical Debt & Roadmap
+#+identifier: 20260524T141000
+#+filetags: :arch:meta:
+
+* Dette Technique (Effets de Bord)
+
+** Gestion des Portefeuilles
+- Le =walletId= est actuellement codé en dur à =1= (Caisse par défaut) dans =AddTransactionDialog=. L'application supporte plusieurs portefeuilles en base de données mais l'UI ne permet pas encore de les choisir lors de la saisie.
+
+** Import CSV
+- La logique de mapping des colonnes CSV est très rigide et basée sur des comparaisons de chaînes de caractères codées en dur dans =DatabaseHelper.importFromCsv=.
+- Les erreurs lors de l'import sont ignorées silencieusement, ce qui peut rendre le débogage difficile pour l'utilisateur en cas de fichier mal formé.
+
+** Performance
+- Le =transactionsProvider= recharge TOUTES les transactions à chaque changement. Pour une base de données importante, une pagination (Lazy Loading) sera nécessaire.
+
+* Roadmap (KnowCode Driven)
+
+** Phase 1 : Gestion Multi-Portefeuille
+- Ajouter un sélecteur de portefeuille dans le dialogue d'ajout.
+- Mettre à jour les calculs de résumé pour filtrer par portefeuille.
+
+** Phase 2 : Robustesse de l'Import
+- Créer une interface de mapping visuelle pour l'import CSV.
+- Ajouter des logs ou un rapport d'erreurs après l'import.
+
+** Phase 3 : Export PDF / Rapports
+- Générer des rapports financiers mensuels formatés pour impression.
+
+* Liens
+- Parent: [[denote:20260524T140000][Architecture Overview]]

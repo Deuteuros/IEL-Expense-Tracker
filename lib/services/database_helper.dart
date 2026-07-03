@@ -25,8 +25,9 @@ class DatabaseHelper {
 
     return await openDatabase(
       path,
-      version: 1,
+      version: 2,
       onCreate: _createDB,
+      onUpgrade: _upgradeDB,
     );
   }
 
@@ -59,6 +60,56 @@ class DatabaseHelper {
         FOREIGN KEY (portefeuille_id) REFERENCES wallets(id)
       )
     ''');
+
+    // Table Orders
+    await db.execute('''
+      CREATE TABLE orders (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        table_number TEXT NOT NULL,
+        status TEXT NOT NULL,
+        notes TEXT,
+        created_at TEXT NOT NULL,
+        updated_at TEXT NOT NULL
+      )
+    ''');
+
+    // Table Order Items
+    await db.execute('''
+      CREATE TABLE order_items (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        order_id INTEGER NOT NULL,
+        product_name TEXT NOT NULL,
+        quantity REAL NOT NULL,
+        notes TEXT,
+        FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE
+      )
+    ''');
+  }
+
+  Future _upgradeDB(Database db, int oldVersion, int newVersion) async {
+    if (oldVersion < 2) {
+      await db.execute('''
+        CREATE TABLE orders (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          table_number TEXT NOT NULL,
+          status TEXT NOT NULL,
+          notes TEXT,
+          created_at TEXT NOT NULL,
+          updated_at TEXT NOT NULL
+        )
+      ''');
+
+      await db.execute('''
+        CREATE TABLE order_items (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          order_id INTEGER NOT NULL,
+          product_name TEXT NOT NULL,
+          quantity REAL NOT NULL,
+          notes TEXT,
+          FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE
+        )
+      ''');
+    }
   }
 
   // --- Transactions CRUD ---
@@ -335,6 +386,53 @@ class DatabaseHelper {
       return result.first['unite'] as String?;
     }
     return null;
+  }
+
+  // --- Orders CRUD ---
+
+  Future<int> insertOrder(Map<String, dynamic> orderData, List<Map<String, dynamic>> itemsData) async {
+    final db = await instance.database;
+    return await db.transaction((txn) async {
+      final orderId = await txn.insert('orders', orderData);
+      for (var item in itemsData) {
+        await txn.insert('order_items', {
+          ...item,
+          'order_id': orderId,
+        });
+      }
+      return orderId;
+    });
+  }
+
+  Future<int> updateOrderStatus(int orderId, String status) async {
+    final db = await instance.database;
+    return await db.update(
+      'orders',
+      {
+        'status': status,
+        'updated_at': DateTime.now().toIso8601String(),
+      },
+      where: 'id = ?',
+      whereArgs: [orderId],
+    );
+  }
+
+  Future<List<Map<String, dynamic>>> getOrders() async {
+    final db = await instance.database;
+    final List<Map<String, dynamic>> ordersResult = await db.query('orders', orderBy: 'created_at DESC');
+    List<Map<String, dynamic>> detailedOrders = [];
+    for (var order in ordersResult) {
+      final List<Map<String, dynamic>> itemsResult = await db.query(
+        'order_items',
+        where: 'order_id = ?',
+        whereArgs: [order['id']],
+      );
+      detailedOrders.add({
+        ...order,
+        'items': itemsResult,
+      });
+    }
+    return detailedOrders;
   }
 
   Future close() async {

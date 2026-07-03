@@ -1,0 +1,30 @@
+#+title: Persistence (DatabaseHelper)
+#+identifier: 20260524T140200
+#+filetags: :service:db:
+
+* Rôle
+Le =DatabaseHelper= est un singleton gérant la connexion à la base de données SQLite (=cashew.db=). Il encapsule toute la logique SQL brute.
+
+* Initialisation
+- Sur Desktop (Linux/Windows), il utilise =sqflite_ffi= pour initialiser le moteur SQLite.
+- Lors de la création (=_createDB=), il définit deux tables : =wallets= et =transactions=.
+
+* Méthodes Clés (Logique)
+
+** Insertion de Transaction
+L'insertion prend un =TransactionModel=, le convertit en Map et l'ajoute à la table =transactions=.
+
+** Calcul du Résumé (=getSummary=)
+- Calcule la somme des entrées ("Miditra", "Vente") et des sorties ("Fandaniana", "Achat") sur une période donnée (X jours).
+- Retourne un Map avec =income=, =expense= et =balance=.
+
+** Import/Export CSV
+- *Export* : Convertit toutes les transactions en format CSV.
+- *Import* : Lit un fichier CSV, détecte le séparateur (virgule ou point-virgule), mappe les colonnes vers les champs de la base de données, et insère les lignes dans une transaction atomique.
+
+** Evolution & Distribution
+Génère des données agrégées pour les graphiques (évolution du solde cumulé et top 5 des dépenses par article).
+
+* Liens
+- Parent: [[denote:20260524T140000][Architecture Overview]]
+- Modèle: [[denote:20260524T140100][Data Model: Transaction]]

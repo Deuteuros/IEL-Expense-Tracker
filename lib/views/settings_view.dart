@@ -7,6 +7,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as p;
 import '../services/database_helper.dart';
 import '../providers/transaction_provider.dart';
+import '../providers/web_socket_provider.dart';
 
 class SettingsView extends ConsumerWidget {
   const SettingsView({super.key});
@@ -33,6 +34,62 @@ class SettingsView extends ConsumerWidget {
             title: const Text('Handefa CSV (Exporter CSV)'),
             subtitle: const Text('Tehirizo ny hara-mira rehetra'),
             onTap: () => _exportCsv(context),
+          ),
+          const Divider(),
+          _buildSectionHeader(context, 'Tambazotra (Réseau Local)'),
+          Consumer(
+            builder: (context, ref, child) {
+              final wsManager = ref.watch(webSocketServerProvider);
+              return Card(
+                elevation: 0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  side: BorderSide(color: Colors.grey.shade300),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            wsManager.isRunning ? 'Mandeha ny serveur (Actif)' : 'Mijanona ny serveur (Inactif)',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: wsManager.isRunning ? Colors.green : Colors.red,
+                            ),
+                          ),
+                          Switch(
+                            value: wsManager.isRunning,
+                            onChanged: (value) {
+                              if (value) {
+                                wsManager.start();
+                              } else {
+                                wsManager.stop();
+                              }
+                            },
+                          ),
+                        ],
+                      ),
+                      if (wsManager.isRunning) ...[
+                        const SizedBox(height: 8),
+                        SelectableText(
+                          'Adiresy IP: ws://${wsManager.ipAddress}:${wsManager.port}/ws',
+                          style: const TextStyle(fontFamily: 'monospace', fontSize: 13, fontWeight: FontWeight.w600),
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          'Mpanjifa mifandray (Clients): ${wsManager.connectedClientsCount}',
+                          style: TextStyle(color: Colors.grey.shade700),
+                        ),
+                      ],
+                    ],
+                  ),
+                ),
+              );
+            },
           ),
           const Divider(),
           _buildSectionHeader(context, 'Mombamomba (À propos)'),

@@ -1,0 +1,30 @@
+#+title: UI: Add Transaction Dialog
+#+identifier: 20260524T140500
+#+filetags: :widget:form:
+
+* Description
+Le =AddTransactionDialog= est un formulaire complexe permettant de saisir une nouvelle transaction. Il inclut des fonctionnalités d'aide à la saisie.
+
+* Fonctionnalités Clés
+
+** Calcul Automatique
+Le dialogue calcule en temps réel le montant total (=qty * unitPrice=) via un écouteur (=addListener=) sur les contrôleurs de texte.
+
+** Suggestions Intelligentes (=InlineAutocompleteField=)
+- Propose des suggestions pour l'article (=item=) et le tiers (=providerClient=) basées sur l'historique.
+- Lorsqu'un article est sélectionné, l'application recherche automatiquement la dernière unité utilisée pour cet article via =DatabaseHelper.getRecentUnitForItem= et pré-remplit le champ unité.
+
+** Validation
+Le formulaire valide que les champs obligatoires (article, quantité, prix) sont remplis avant de permettre la sauvegarde.
+
+* Algorithme de Sauvegarde
+1. Récupère les valeurs des contrôleurs.
+2. Crée une instance de =TransactionModel=.
+3. Appelle =DatabaseHelper.insertTransaction=.
+4. Déclenche le callback =onSaved= pour notifier le parent.
+5. Ferme le dialogue.
+
+* Liens
+- Parent: [[denote:20260524T140400][UI: Main Screen & Navigation]]
+- Modèle: [[denote:20260524T140100][Data Model: Transaction]]
+- Service: [[denote:20260524T140200][Persistence (DatabaseHelper)]]

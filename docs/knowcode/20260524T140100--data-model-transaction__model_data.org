@@ -1,0 +1,27 @@
+#+title: Data Model: Transaction
+#+identifier: 20260524T140100
+#+filetags: :model:data:
+
+* Description
+Le modèle =TransactionModel= est l'entité centrale de l'application. Il représente une opération financière unique.
+
+* Structure (Champs)
+- *id* : Identifiant unique auto-incrémenté (SQLite).
+- *date* : Date de l'opération au format ISO (YYYY-MM-DD).
+- *categoryFlux* : Nature du flux (ex: "Miditra" pour Entrée, "Fandaniana" pour Dépense).
+- *item* : Description de l'article ou du service.
+- *quantity* : Quantité (optionnel).
+- *unit* : Unité de mesure (ex: kg, litre, pièce).
+- *unitPrice* : Prix par unité.
+- *totalAmountMga* : Montant total de la transaction en Ariary (MGA).
+- *providerClient* : Nom du tiers (fournisseur ou client).
+- *walletId* : Lien vers le portefeuille utilisé.
+
+* Algorithme de Mapping
+Le modèle contient deux méthodes pour la sérialisation SQLite :
+1. =toMap()= : Convertit l'objet Dart en une Map =String:dynamic= compatible avec SQLite.
+2. =fromMap()= : Factory qui recrée un objet Dart à partir d'une ligne de résultat SQLite.
+
+* Liens
+- Parent: [[denote:20260524T140000][Architecture Overview]]
+- Service: [[denote:20260524T140200][Persistence (DatabaseHelper)]]

@@ -1,0 +1,29 @@
+#+title: Architecture Overview - IEL Expense Tracker
+#+identifier: 20260524T140000
+#+filetags: :arch:iel_expense:
+
+* Introduction
+L'application "IEL - Expense tracker" (CaisseCash) est un outil de gestion de finances personnelles et de petite entreprise (TPE) développé avec Flutter. Elle permet de suivre les flux de trésorerie (Entrées/Sorties), de gérer des portefeuilles et de visualiser l'évolution financière via des graphiques.
+
+* Composants Principaux
+La structure suit une architecture en couches (Layered Architecture) simplifiée, adaptée à Flutter et Riverpod :
+
+** [[denote:20260524T140100][Modèles de Données]]
+Définit les entités métier (Transaction, Wallet).
+
+** [[denote:20260524T140200][Persistance (DatabaseHelper)]]
+Gère la base de données SQLite locale, les migrations et les opérations CRUD.
+
+** [[denote:20260524T140300][Gestion d'État (Providers)]]
+Utilise Riverpod pour exposer les données de la base de données de manière asynchrone à l'interface utilisateur.
+
+** Interface Utilisateur (Views & Widgets)
+- *MainScreen* : Dashboard principal avec résumé et navigation.
+- *HistoryView* : Liste filtrable des transactions.
+- *Charts* : Visualisation de l'évolution et de la distribution des dépenses.
+
+* Flux de Données
+1. L'utilisateur saisit une transaction via *AddTransactionDialog*.
+2. Le *TransactionProvider* appelle *DatabaseHelper* pour persister la donnée.
+3. Les providers dépendants (summary, evolution) sont invalidés et se rechargent automatiquement.
+4. L'UI réagit au changement d'état des providers.

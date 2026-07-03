@@ -1,0 +1,22 @@
+#+title: UI: Main Screen & Navigation
+#+identifier: 20260524T140400
+#+filetags: :view:navigation:
+
+* Rôle
+Le =MainScreen= est le point d'entrée de l'interface utilisateur. Il gère la navigation principale entre les différentes vues de l'application.
+
+* Structure
+- *IndexedStack* : Permet de conserver l'état des vues lors du changement d'onglet (Summary, History, Settings).
+- *NavigationBar* : Barre de navigation inférieure (Material 3).
+- *FloatingActionButton* : Bouton d'action flottant pour déclencher l'ajout d'une transaction.
+
+* Logique de Navigation
+- L'index de navigation est géré par un =StateProvider= nommé =navigationIndexProvider=.
+- Le changement d'onglet met à jour cet index, ce qui reconstruit le =Scaffold= avec la vue correspondante.
+
+* Rafraîchissement des Données
+Lorsqu'une transaction est sauvegardée via le dialogue d'ajout, le =MainScreen= invalide plusieurs providers (=transactionsProvider=, =summaryProvider=, etc.) pour forcer la mise à jour de l'UI sur tous les écrans.
+
+* Liens
+- Parent: [[denote:20260524T140000][Architecture Overview]]
+- Action: [[denote:20260524T140500][UI: Add Transaction Dialog]]

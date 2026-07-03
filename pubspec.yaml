@@ -1,5 +1,5 @@
 name: caissecash
-description: "A new Flutter project."
+description: "Application Flutter de suivi de dépenses — CaisseCash"
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -45,6 +45,9 @@ dependencies:
   csv: ^6.0.0
   google_fonts: ^6.2.1
   share_plus: ^7.2.1
+  shelf: ^1.4.1
+  shelf_router: ^1.1.4
+  shelf_web_socket: ^1.0.4
 
 dev_dependencies:
   flutter_test:

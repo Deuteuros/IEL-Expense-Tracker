@@ -19,8 +19,8 @@ Application Flutter de **suivi de dépenses** multi-plateforme. Gère les entré
 
 ## Projets associés
 
-- [IEL - Serveur](https://github.com/DEUTEUTOS/IEL-Serveur) — Prise de commandes en salle
-- [IEL - Cuisine](https://github.com/DEUTEUTOS/IEL-Cuisine) — Affichage des commandes en cuisine
+- [IEL - Serveur](https://github.com/Deuteuros/IEL-Serveur) — Prise de commandes en salle
+- [IEL - Cuisine](https://github.com/Deuteuros/IEL-Cuisine) — Affichage des commandes en cuisine
 
 ---
 
